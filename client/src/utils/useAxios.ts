@@ -19,11 +19,11 @@ const useAxios = (axiosParams: AxiosRequestConfig) => {
     }
  };
 
- useEffect(() => {
-  if(axiosParams.method === "GET" || axiosParams.method === "get"){
-    fetchData(axiosParams);
-  }
-},[]);
+//  useEffect(() => {
+//   if(axiosParams.method === "GET" || axiosParams.method === "get"){
+//     fetchData(axiosParams);
+//   }
+// },[]);
 
 const sendData = () => {
   fetchData(axiosParams);

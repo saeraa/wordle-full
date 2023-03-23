@@ -1,8 +1,6 @@
-import NavBar from "./components/NavBar";
-import { Outlet } from "react-router-dom";
+import Game from "./routes/Game";
 import { useState, useEffect } from "react";
 import { GameContext } from "./context/gameContext";
-import {Letter} from "./interfaces/Letter";
 
 function App() {
 	const [gameWon, setGameWon] = useState(false);
@@ -99,7 +97,7 @@ function App() {
 		}
 	]
 ]);
-	const [gameId, setGameId] = useState("");
+	const [gameId, setGameId] = useState<string | Uint8Array>();
 	const [numLetters, setNumLetters] = useState(7);
 	const [currGuess, setCurrGuess] = useState("");
 	const [guessedLetters, setGuessedLetters] = useState([
@@ -169,8 +167,7 @@ function App() {
 					guessedLetters, setGuessedLetters
 				}}
 			>
-				<NavBar />
-				<Outlet />
+				<Game />
 			</GameContext.Provider>
 		</div>
 	);

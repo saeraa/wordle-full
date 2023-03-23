@@ -1,0 +1,43 @@
+<script src="" defer></script>
+
+<nav>
+  <div class="bg-stone-900/70 m-0 text-purple-300 font-sans shadow w-full">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col sm:flex-row items-center justify-center sm:justify-between py-4">
+        <div>
+          <a href="/" class="tracking-wide text-2xl sm:text-3xl font-bold font-mono uppercase hover:text-stone-300 "
+          >Wordle</a>
+        </div>
+        <div class="flex flex-col w-full sm:w-auto sm:flex-row sm:flex sm:items-center gap-4 sm:border-0 border-t-2 mt-4 pt-4 sm:m-0 sm:p-0 text-md sm:text-lg">
+          <a href="/game"
+          <% if (page === 'game') { %>
+            class="text-md text-purple-400 font-semibold hover:text-stone-300 mr-4"
+            <%} else { %>
+            class="text-md font-semibold hover:text-stone-300 mr-4"
+            <% } %> 
+>game</a>
+          <a href="/information"
+          <% if (page === 'info') { %>
+            class="text-md text-purple-400 font-semibold hover:text-stone-300 mr-4"
+            <%} else { %>
+            class="text-md font-semibold hover:text-stone-300 mr-4"
+            <% } %> 
+          >information</a>
+          <a href="/highscore"
+          <% if (page === 'hs') { %>
+            class="text-md text-purple-400 font-semibold hover:text-stone-300 mr-4"
+            <%} else { %>
+            class="text-md font-semibold hover:text-stone-300 mr-4"
+            <% } %>  
+          >highscore</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</nav>
+
+<!--           <a href="/information"
+           class={({ isActive }) => isActive ? 
+           "text-md text-purple-400 font-semibold hover:text-stone-300 mr-4" : "text-md font-semibold hover:text-stone-300 mr-4"}>information</a> -->
