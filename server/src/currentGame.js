@@ -1,58 +1,67 @@
 import wordChoice from "./wordChoice/wordChoice.js";
-import guessWord from './guessWord/guessWord.js';
-import { nanoid } from 'nanoid'
+import guessWord from "./guessWord/guessWord.js";
+import { nanoid } from "nanoid";
+import {getListOfWords} from "./wordList/getWordList.js";
 
 const currentGame = {
-  word: null,
-  gameId: null,
-  letters: null,
-  isUnique: null,
-  startTime: null,
-  endTime: null,
-  guesses: [],
-  name: null,
-  gameWon: false,
-  allowedGuesses: 6
-}
+	word: null,
+	gameId: null,
+	letters: null,
+	isUnique: null,
+	startTime: null,
+	endTime: null,
+	guesses: [],
+	name: null,
+	gameWon: false,
+	allowedGuesses: 6
+};
 
 function createNewGame(lengthOfWord, isUnique) {
-  //console.log("should be 50", wordChoice(["åtta", "fyra", "femtio"], parseInt(lengthOfWord), !!isUnique))
- // console.log("should be 50", wordChoice(["åtta", "fyra", "femtio"], 6, false))
-  const word = wordChoice(["åtta", "fyra", "femtio"], 
-  parseInt(lengthOfWord), !!isUnique)
-  const gameId = nanoid();
+	const word = wordChoice(
+		["åtta", "fyra", "femtio", "fifty", "fatty"],
+		parseInt(lengthOfWord),
+		isUnique
+	);
+	const gameId = nanoid();
 
-  console.log("creating new game: " + gameId)
+	console.log("creating new game: " + gameId);
 
-  currentGame.word = word,
-  currentGame.gameId = gameId,
-  currentGame.letters = lengthOfWord,
-  currentGame.isUnique = isUnique,
-  currentGame.startTime = new Date()
+	(currentGame.word = word),
+		(currentGame.gameId = gameId),
+		(currentGame.letters = lengthOfWord),
+		(currentGame.isUnique = isUnique),
+		(currentGame.startTime = new Date());
 
-  return {
-    startTime: currentGame.startTime,
-    letters: currentGame.letters,
-    isUnique: currentGame.isUnique,
-    gameId: currentGame.gameId,
-    word: currentGame.word
-  };
+	return {
+		startTime: currentGame.startTime,
+		letters: currentGame.letters,
+		isUnique: isUnique,
+		gameId: currentGame.gameId,
+		word: currentGame.word
+	};
 }
 
 function checkWordGuess(gameId, guess) {
-  console.log("currentgame " + currentGame.gameId);
-  console.log("gameId sent " + gameId);
-  if (currentGame.gameId !== gameId) {
-    return "No such game"
-  }
+	// console.log("currentgame " + currentGame.gameId);
+	// console.log("gameId sent " + gameId);
+	console.log("guess sent " + guess);
+	// if (currentGame.gameId !== gameId) {
+	// 	return "No such game";
+	// }
 
-  const result = guessWord(guess, currentGame.word)
+	const numLetters = currentGame.letters;
+  console.log(numLetters)
+	const arrayOfWords = getListOfWords(+numLetters);
+	console.log("array : ", arrayOfWords[0]);
+	const checkedWord = arrayOfWords.find((word) => word === guess);
 
-  return result;
+	if (checkedWord === undefined) {
+		return "No such word";
+	}
+
+	const result = guessWord(guess, currentGame.word);
+
+	return result;
 }
 
-
-export {
-  createNewGame,
-  checkWordGuess
-}
+export { createNewGame, checkWordGuess };

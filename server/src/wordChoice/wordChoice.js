@@ -3,10 +3,12 @@ import {
 	hasOnlyUniqueLetters
 } from "../utils/utils.js";
 
+
 export default function wordChoice(array, length, onlyUniqueLetters) {
+	//console.log("wordChoice ", onlyUniqueLetters)
 	const resultingArray = array
 		.filter((word) =>
-			!!onlyUniqueLetters
+			onlyUniqueLetters === "true" || onlyUniqueLetters === true
 				? !hasSpecialCharsOrSpaces(word) && hasOnlyUniqueLetters(word)
 				: !hasSpecialCharsOrSpaces(word)
 		)

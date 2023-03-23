@@ -23,6 +23,8 @@ apiRouter.get("/highscore", (req, res) => {
 apiRouter.post("/guess", (req, res) => {
 	const gameId = req.body.gameId;
 	const guess = req.body.guess;
+  //console.log(req)
+ // console.log("body ", req.body)
 	const result = checkWordGuess(gameId, guess);
 	res.status(200).json(result);
 });
@@ -30,7 +32,7 @@ apiRouter.post("/guess", (req, res) => {
 apiRouter.get("/word", (req, res) => {
 	console.log("req query length ", req.query.length);
 	console.log("req query unique ", req.query.unique);
-	const result = createNewGame(req.query.length, req.query.unique);
+	const result = createNewGame(+req.query.length, req.query.unique);
 	return res.status(200).json(result);
 });
 

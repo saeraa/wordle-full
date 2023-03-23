@@ -1,5 +1,5 @@
-const { describe, expect, it } = require("@jest/globals");
-const guessWord = require("./guessWord");
+import { describe, expect, it } from "@jest/globals";
+import guessWord from "./guessWord";
 
 /* 
 

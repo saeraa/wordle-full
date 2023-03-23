@@ -1,6 +1,6 @@
-const { describe, expect, it } = require("@jest/globals");
-const { toBeOneOf } = require("jest-extended");
-const wordChoice = require("./wordChoice");
+import { describe, expect, it } from "@jest/globals";
+import { toBeOneOf } from "jest-extended";
+import wordChoice from "./wordChoice";
 
 expect.extend({ toBeOneOf });
 
