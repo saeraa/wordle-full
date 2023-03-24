@@ -15,11 +15,6 @@ const GameBoard = () => {
 
 	useEffect(() => {
 		const previous = prevGuesses.flat();
-		//console.log("prev ", previous);
-
-		// prevGuesses.forEach((array) => {
-		// 	console.log(array);
-		// });
 
 		const thing: Letter[] = currGuess.split("").map((letter) => ({
 			letter: letter,
@@ -34,8 +29,6 @@ const GameBoard = () => {
 			return newArray.fill(emptyLetter, prevlength);
 		});
 	}, [currGuess]);
-
-	//console.log("letters: ", letters);
 
 	const letterElement = letters.map((letter, i) => {
 		// if for some reason the array is longer than it's supposed to be, don't show extra letters

@@ -32,7 +32,6 @@ function App() {
 	}
 
 	async function checkGuess() {
-		console.log("checking guess.... ");
 
 		const fetchData = async (params: AxiosRequestConfig) => {
 			try {
@@ -62,7 +61,7 @@ function App() {
 				setGameWon(true);
 				console.log("GameWONNNN!");
 				setGameOn(false);
-				
+
 			} catch (err: any) {
 				console.log(err);
 			} finally {
@@ -85,7 +84,6 @@ function App() {
 
 		await fetchData(options);
 
-		console.log("checking guess.... DONE ");
 	}
 
 	const updateGuessedLetters = () => {
@@ -103,8 +101,6 @@ function App() {
 	useEffect(() => {
 		updateGuessedLetters();
 	}, [currGuess]);
-
-	console.log("guessed", guessedLetters);
 
 	return (
 		<div className="App">
@@ -146,121 +142,3 @@ function App() {
 }
 
 export default App;
-
-// [[
-// {
-// 	letter: "A",
-// 	result: "correct"
-// },
-// {
-// 	letter: "B",
-// 	result: "misplaced"
-// },
-// {
-// 	letter: "C",
-// 	result: "incorrect"
-// },
-// {
-// 	letter: "D",
-// 	result: "incorrect"
-// },
-// {
-// 	letter: "E",
-// 	result: "incorrect"
-// },
-// {
-// 	letter: "E",
-// 	result: "correct"
-// },
-// {
-// 	letter: "F",
-// 	result: "incorrect"
-// }
-// ],
-// [
-// {
-// 	letter: "A",
-// 	result: "correct"
-// },
-// {
-// 	letter: "C",
-// 	result: "incorrect"
-// },
-// {
-// 	letter: "C",
-// 	result: "incorrect"
-// },
-// {
-// 	letter: "D",
-// 	result: "incorrect"
-// },
-// {
-// 	letter: "E",
-// 	result: "incorrect"
-// },
-// {
-// 	letter: "E",
-// 	result: "correct"
-// },
-// {
-// 	letter: "F",
-// 	result: "incorrect"
-// }
-// ],
-// [
-// {
-// 	letter: "A",
-// 	result: "incorrect"
-// },
-// {
-// 	letter: "B",
-// 	result: "incorrect"
-// },
-// {
-// 	letter: "C",
-// 	result: "incorrect"
-// },
-// {
-// 	letter: "D",
-// 	result: "correct"
-// },
-// {
-// 	letter: "E",
-// 	result: "incorrect"
-// },
-// {
-// 	letter: "E",
-// 	result: "correct"
-// },
-// {
-// 	letter: "F",
-// 	result: "incorrect"
-// }
-// ]
-// ]
-// [
-// {
-// letter: "A",
-// result: "correct"
-// },
-// {
-// letter: "B",
-// result: "misplaced"
-// },
-// {
-// letter: "C",
-// result: "incorrect"
-// },
-// {
-// letter: "D",
-// result: "incorrect"
-// },
-// {
-// letter: "E",
-// result: "incorrect"
-// },
-// {
-// letter: "E",
-// result: "correct"
-// }
-// ]

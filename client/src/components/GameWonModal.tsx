@@ -13,6 +13,7 @@ const GameModal = ({ onClose }: GameModalProps) => {
 	const [input, setInput] = useState("");
 	const [formSent, setFormSent] = useState(false);
 	const { currGuess, prevGuesses, gameId, resetGame } = useContext(GameContext);
+	
 	const options = {
 		method: "post",
 		url: `http://localhost:5080/api/highscore`,
@@ -24,11 +25,6 @@ const GameModal = ({ onClose }: GameModalProps) => {
 			name: input,
 			gameId: gameId
 		}
-	};
-
-	const startGame = () => {
-		onClose();
-		console.log("Game started!");
 	};
 
 	function handleSubmit(e: FormEvent<HTMLFormElement>) {

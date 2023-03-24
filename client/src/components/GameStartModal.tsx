@@ -5,7 +5,6 @@ import { useContext } from "react";
 import { GameContext } from "../context/gameContext";
 import axios, { AxiosRequestConfig } from "axios";
 
-
 const GameModal = () => {
 	const {
 		setShowStartModal,
@@ -54,14 +53,12 @@ const GameModal = () => {
 		const fetchData = async (params: AxiosRequestConfig) => {
 			try {
 				const response = await axios.request(params);
-				//console.log(response);
+
         if (response.status === 200) {
           setShowStartModal(false);
         }
 
-				
 				//TODO if response.status == something else, do something
-
 
         setGameId(response.data.gameId);
         setStartTime(new Date(response.data.startTime));
@@ -73,12 +70,10 @@ const GameModal = () => {
 			}
 		};
 
-		const response: any = fetchData(options);
-
-		// sendData();
-		console.log(response);
+		fetchData(options);
 
 	};
+
 	return (
 		<div className="modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-40">
 			<div className="modal fixed top m-auto w-full max-w-xs bg-neutral-800 p-4 sm:p-10 rounded-md">

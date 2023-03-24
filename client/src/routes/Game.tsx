@@ -1,6 +1,6 @@
 import KeyboardComponent from "../components/Keyboard";
 import GameBoard from "../components/GameBoard";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { createPortal } from "react-dom";
 import StartModal from "../components/GameStartModal";
 import WonModal from "../components/GameWonModal";

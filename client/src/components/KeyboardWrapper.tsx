@@ -1,4 +1,3 @@
-import { AxiosRequestConfig } from "axios";
 import {
 	FunctionComponent,
 	MutableRefObject,
@@ -6,7 +5,6 @@ import {
 } from "react";
 import Keyboard, { KeyboardReactInterface } from "react-simple-keyboard";
 import { GameContext } from "../context/gameContext";
-import axios from "axios";
 
 interface IProps {
 	onChange: (input: string) => void;
@@ -17,10 +15,8 @@ const KeyboardWrapper: FunctionComponent<IProps> = ({
 	onChange,
 	keyboardRef
 }) => {
-	const { checkGuess, guessedLetters, numLetters, gameId, currGuess, gameOn, setError, setErrorText, setGuessedLetters, setPrevGuesses, setCurrGuess, setGameWon, setGameOn } =
+	const { checkGuess, guessedLetters, numLetters, currGuess, gameOn } =
 		useContext(GameContext);
-
-
 
 	// for coloring the letters on the keyboard
 	const correctLetters = guessedLetters
@@ -47,63 +43,8 @@ const KeyboardWrapper: FunctionComponent<IProps> = ({
 			// don't send to the server if it's not a word of the proper length
 			if (currGuess.length !== numLetters) return;
 
-			console.log("Submitting guess: " + currGuess + "!");
-
 			await checkGuess();
 
-			// const fetchData = async (params: AxiosRequestConfig) => {
-			// 	try {
-			// 		const result = await axios.request(params);
-			// 		console.log(result);
-
-
-			// 		//TODO if result.data == "no such word" show error message
-			// 		if (result.data == "No such word") {
-			// 			setError(true);
-			// 			setErrorText("No such word: " + currGuess)
-			// 			return;
-			// 		}
-
-			// 		const guessResult = result.data;
-
-			// 		setGuessedLetters(prev => {
-			// 			return [...prev, ...guessResult]
-			// 		})
-			// 		setPrevGuesses(prev => {
-			// 			return [...prev, guessResult]
-			// 		})
-			// 		setCurrGuess("");
-					
-
-
-			// 		//TODO else save result to previous guesses
-			// 		// add guessed letters
-			// 		// clear currGuess
-			// 		// 
-
-			// 		// check result for all correct
-
-			// 			for (const guessedLetter of guessResult) {
-			// 				if (guessedLetter.result !== "correct") {
-			// 					return;
-			// 				}
-			// 			}
-			// 			setGameWon(true);
-			// 			console.log("GameWONNNN!")
-			// 			setGameOn(false);
-
-
-
-			// 	} catch (err: any) {
-			// 		console.log(err);
-			// 	} finally {
-			// 		console.log("finally");
-			// 	}
-			// };
-
-			// await fetchData(options);
-
-			// clear the keyboard cache
 			keyboardRef.current.clearInput();
 		}
 	};
