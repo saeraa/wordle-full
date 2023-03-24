@@ -6,12 +6,27 @@ function App() {
 	const [gameWon, setGameWon] = useState(false);
 	const [isUnique, setIsUnique] = useState(false);
 	const [gameOn, setGameOn] = useState(false);
-	const [prevGuesses, setPrevGuesses] = useState([]);
-	const [gameId, setGameId] = useState<string>();
-	const [numLetters, setNumLetters] = useState(7);
+	const [error, setError] = useState(false);
+	const [numLetters, setNumLetters] = useState(5);
+	const [gameId, setGameId] = useState<string>("");
 	const [currGuess, setCurrGuess] = useState("");
+	const [errorText, setErrorText] = useState("");
+	const [prevGuesses, setPrevGuesses] = useState([]);
 	const [guessedLetters, setGuessedLetters] = useState([]);
 	const [startTime, setStartTime] = useState(new Date());
+
+	function resetGame() {
+		setGameWon(false);
+		setGameOn(false);
+		setIsUnique(false);
+		setError(false);
+		setNumLetters(5);
+		setGameId("");
+		setErrorText("");
+		setCurrGuess("");
+		setPrevGuesses([]);
+		setGuessedLetters([]);
+	}
 
 	const updateGuessedLetters = () => {
 		const test = new Set();
@@ -40,6 +55,10 @@ function App() {
 		<div className="App">
 			<GameContext.Provider
 				value={{
+					resetGame,
+					error,
+					setError,
+					errorText, setErrorText,
 					startTime,
 					setStartTime,
 					gameWon,

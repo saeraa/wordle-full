@@ -64,15 +64,12 @@ const GameBoard = () => {
 
 	return (
 		<div>
-			<h1 className="text-center text-2xl font-semibold tracking-wider p-3">
-				Current game
-			</h1>
 			<div className="px-2 mx-auto flex max-w-xs justify-between">
 				<span
 					className={
 						isUnique
-							? "text-center text-sm lowercase flex items-center text-neutral-300 line-through"
-							: "text-center text-sm lowercase flex items-center text-neutral-300"
+							? "text-center text-sm lowercase flex items-center text-neutral-300"
+							: "text-center text-sm lowercase flex items-center text-neutral-300 line-through"
 					}
 				>
 					Using unique letters

@@ -13,9 +13,11 @@
   .correct {
     @apply bg-green-600/90 text-neutral-50;
   }
+  }
 
+  @layer components {
   .primary {
-    @apply flex justify-center sm:w-auto px-5 py-2 text-sm tracking-wide items-center text-neutral-100 transition-colors duration-200 bg-purple-700 rounded-lg shrink-0 hover:bg-purple-800;
+    @apply flex justify-center sm:w-auto px-5 py-2 text-sm tracking-wide items-center text-neutral-100 transition-colors duration-200 bg-purple-700 rounded-lg shrink-0 hover:bg-purple-800;   
   }
 
   .secondary {

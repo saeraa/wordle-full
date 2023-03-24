@@ -21,8 +21,11 @@ const GameTimer = () => {
 
   useEffect(() => {
 		// let's not start the timer if the game isn't on
+    if (!gameOn) {
+			return () => clearInterval(timer);
+		};
     if (gameOn) timer = setInterval(getTime, 1000);
-    if (!gameOn) clearInterval(timer);
+		return () => clearInterval(timer);
   }, [gameOn])
 
 	return (

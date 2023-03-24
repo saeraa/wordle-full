@@ -10,7 +10,8 @@ apiRouter.get("/game", (req, res) => {
 
 apiRouter.post("/highscore", (req, res) => {
 	// console.log(req.body)
-	res.send(201).json("ok");
+	console.log(req.body)
+	res.status(201).json("ok");
 });
 
 apiRouter.get("/highscore", (req, res) => {

@@ -53,7 +53,7 @@ function checkWordGuess(gameId, guess) {
   console.log(numLetters)
 	const arrayOfWords = getListOfWords(+numLetters);
 	console.log("array : ", arrayOfWords[0]);
-	const checkedWord = arrayOfWords.find((word) => word === guess);
+	const checkedWord = arrayOfWords.find((word) => word === guess.toLowerCase())
 
 	if (checkedWord === undefined) {
 		return "No such word";

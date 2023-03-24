@@ -2,6 +2,11 @@ import { createContext, useContext } from "react";
 import { LetterGroup } from "../interfaces/Letter";
 
 interface GameContextType {
+  resetGame: () => void;
+  error: boolean;
+  errorText: string;
+  setErrorText: React.Dispatch<React.SetStateAction<string>>;
+  setError: React.Dispatch<React.SetStateAction<boolean>>;
 	startTime: Date;
 	gameId: string;
 	gameWon: boolean;

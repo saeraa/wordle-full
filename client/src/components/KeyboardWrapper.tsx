@@ -17,8 +17,9 @@ const KeyboardWrapper: FunctionComponent<IProps> = ({
 	onChange,
 	keyboardRef
 }) => {
-	const { guessedLetters, numLetters, gameId, currGuess, gameOn } =
+	const { guessedLetters, numLetters, gameId, currGuess, gameOn, setError, setErrorText, setGuessedLetters, setPrevGuesses, setCurrGuess, setGameWon, setGameOn } =
 		useContext(GameContext);
+
 	const options = {
 		method: "post",
 		url: `http://localhost:5080/api/guess`,
@@ -63,7 +64,45 @@ const KeyboardWrapper: FunctionComponent<IProps> = ({
 				try {
 					const result = await axios.request(params);
 					console.log(result);
-					// if result.data == "no such word" show error message
+
+
+					//TODO if result.data == "no such word" show error message
+					if (result.data == "No such word") {
+						setError(true);
+						setErrorText("No such word: " + currGuess)
+						return;
+					}
+
+					const guessResult = result.data;
+
+					setGuessedLetters(prev => {
+						return [...prev, ...guessResult]
+					})
+					setPrevGuesses(prev => {
+						return [...prev, guessResult]
+					})
+					setCurrGuess("");
+					
+
+
+					//TODO else save result to previous guesses
+					// add guessed letters
+					// clear currGuess
+					// 
+
+					// check result for all correct
+
+						for (const guessedLetter of guessResult) {
+							if (guessedLetter.result !== "correct") {
+								return;
+							}
+						}
+						setGameWon(true);
+						console.log("GameWONNNN!")
+						setGameOn(false);
+
+
+
 				} catch (err: any) {
 					console.log(err);
 				} finally {
