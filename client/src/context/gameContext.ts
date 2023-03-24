@@ -3,7 +3,7 @@ import { LetterGroup } from "../interfaces/Letter";
 
 interface GameContextType {
 	startTime: Date;
-	gameId: string | Uint8Array;
+	gameId: string;
 	gameWon: boolean;
 	gameOn: boolean;
 	allowedGuesses: number;
@@ -16,7 +16,7 @@ interface GameContextType {
 	setGameOn: React.Dispatch<React.SetStateAction<boolean>>;
 	setIsUnique: React.Dispatch<React.SetStateAction<boolean>>;
 	setPrevGuesses: React.Dispatch<React.SetStateAction<any[]>>;
-	setGameId: React.Dispatch<React.SetStateAction<string | Uint8Array>>;
+	setGameId: React.Dispatch<React.SetStateAction<string>>;
 	setNumLetters: React.Dispatch<React.SetStateAction<number>>;
 	setCurrGuess: React.Dispatch<React.SetStateAction<string>>;
 	setGuessedLetters: React.Dispatch<React.SetStateAction<any[]>>;

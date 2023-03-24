@@ -7,7 +7,7 @@ function App() {
 	const [isUnique, setIsUnique] = useState(false);
 	const [gameOn, setGameOn] = useState(false);
 	const [prevGuesses, setPrevGuesses] = useState([]);
-	const [gameId, setGameId] = useState<string | Uint8Array>();
+	const [gameId, setGameId] = useState<string>();
 	const [numLetters, setNumLetters] = useState(7);
 	const [currGuess, setCurrGuess] = useState("");
 	const [guessedLetters, setGuessedLetters] = useState([]);
