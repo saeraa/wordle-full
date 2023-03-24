@@ -16,7 +16,7 @@ const GameModal = () => {
 	const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const checked = e.target.checked;
 
-		if (!checked) {
+		if (checked) {
 			setIsUnique(true);
 		} else {
 			setIsUnique(false);

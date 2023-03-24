@@ -1,7 +1,8 @@
 import wordChoice from "./wordChoice/wordChoice.js";
 import guessWord from "./guessWord/guessWord.js";
 import { nanoid } from "nanoid";
-import {getListOfWords} from "./wordList/getWordList.js";
+import { getListOfWords } from "./dictionary/getDictionary.js";
+import { getRandomWords } from "./randomWordList/getRandomWords.js";
 
 const currentGame = {
 	word: null,
@@ -18,7 +19,7 @@ const currentGame = {
 
 function createNewGame(lengthOfWord, isUnique) {
 	const word = wordChoice(
-		["åtta", "fyra", "femtio", "fifty", "fatty"],
+		getRandomWords(lengthOfWord),
 		parseInt(lengthOfWord),
 		isUnique
 	);
@@ -32,6 +33,8 @@ function createNewGame(lengthOfWord, isUnique) {
 		(currentGame.isUnique = isUnique),
 		(currentGame.startTime = new Date());
 
+		console.log(word);
+
 	return {
 		startTime: currentGame.startTime,
 		letters: currentGame.letters,
@@ -42,18 +45,15 @@ function createNewGame(lengthOfWord, isUnique) {
 }
 
 function checkWordGuess(gameId, guess) {
-	// console.log("currentgame " + currentGame.gameId);
-	// console.log("gameId sent " + gameId);
-	console.log("guess sent " + guess);
-	// if (currentGame.gameId !== gameId) {
-	// 	return "No such game";
-	// }
+
+	if (currentGame.gameId !== gameId) {
+		return "No such game";
+	}
 
 	const numLetters = currentGame.letters;
-  console.log(numLetters)
 	const arrayOfWords = getListOfWords(+numLetters);
-	console.log("array : ", arrayOfWords[0]);
-	const checkedWord = arrayOfWords.find((word) => word === guess.toLowerCase())
+
+	const checkedWord = arrayOfWords.find((word) => word === guess.toLowerCase());
 
 	if (checkedWord === undefined) {
 		return "No such word";

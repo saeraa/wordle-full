@@ -23,6 +23,7 @@ const Game = () => {
 					document.body
 				)}
 
+
 			<GameBoard />
 
 			<KeyboardComponent />

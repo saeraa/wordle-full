@@ -28,7 +28,7 @@ const GameBoard = () => {
 			newArray.length = num;
 			return newArray.fill(emptyLetter, prevlength);
 		});
-	}, [currGuess, gameOn]);
+	}, [currGuess, gameOn, prevGuesses]);
 
 	const letterElement = letters.map((letter, i) => {
 		// if for some reason the array is longer than it's supposed to be, don't show extra letters

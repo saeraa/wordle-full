@@ -1,6 +1,6 @@
 import IconClose from "../assets/icon-close.svg";
 import IconStar from "../assets/icon-star.svg";
-import { useContext, FormEvent, ChangeEvent, useState, useEffect } from "react";
+import { useContext, FormEvent, ChangeEvent, useState } from "react";
 import { GameContext } from "../context/gameContext";
 import axios, { AxiosRequestConfig } from "axios";
 import Confetti from "./Confetti";
@@ -63,7 +63,7 @@ const GameModal = ({ onClose }: GameModalProps) => {
 						<img src={IconStar} alt="" className="w-8 inline-block ml-2" />
 					</h2>
 
-					<div className="flex gap-2 text-md items-center">
+					<div className="text-md items-center">
 						The word was: <span className="text-purple-200 font-bold">{correctWord}</span> and you guessed it in{" "}
 						{prevGuesses.length} tries!
 					</div>

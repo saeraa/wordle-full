@@ -3,11 +3,6 @@ import { createNewGame, checkWordGuess } from "./currentGame.js";
 
 const apiRouter = express.Router();
 
-apiRouter.get("/game", (req, res) => {
-	//blah blah
-	res.send(200).json("hi!");
-});
-
 apiRouter.post("/highscore", (req, res) => {
 	// console.log(req.body)
 	console.log(req.body)

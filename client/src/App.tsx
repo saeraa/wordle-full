@@ -6,6 +6,7 @@ import axios, { AxiosRequestConfig } from "axios";
 function App() {
 	const [showStartModal, setShowStartModal] = useState(true);
 	const [gameWon, setGameWon] = useState(false);
+	const [gameLost, setGameLost] = useState(false);
 	const [isUnique, setIsUnique] = useState(false);
 	const [gameOn, setGameOn] = useState(false);
 	const [error, setError] = useState(false);
@@ -18,9 +19,14 @@ function App() {
 	const [guessedLetters, setGuessedLetters] = useState([]);
 	const [startTime, setStartTime] = useState(new Date());
 
+	useEffect(() => {
+		if (showStartModal) resetGame();
+	}, [showStartModal])
+
+	const allowedGuesses = 6;
+
 	
 	const startGame = async () => {
-		resetGame();
 
 		const fetchData = async (params: AxiosRequestConfig) => {
 			try {
@@ -55,6 +61,7 @@ function App() {
 	};
 
 	function resetGame() {
+		setGameLost(false);
 		setGameWon(false);
 		setGameOn(false);
 		setIsUnique(false);
@@ -63,7 +70,6 @@ function App() {
 		setGameId("");
 		setErrorText("");
 		setCurrGuess("");
-		console.log("resetting current guess")
 		setPrevGuesses([]);
 		setGuessedLetters([]);
 		setShowStartModal(true);
@@ -91,18 +97,30 @@ function App() {
 				setPrevGuesses((prev) => {
 					return [...prev, guessResult];
 				});
-
+				
+				console.log("line 101: ", currGuess)
 				for (const guessedLetter of guessResult) {
 					if (guessedLetter.result !== "correct") {
-						console.log("yas", guessedLetter.result)
+						setCurrGuess("");
 						return;
 					} 
 					else if (guessedLetter.result === "incorrect" || "misplaced") 
 					{
-						console.log("no", guessedLetter.result)
 						setCurrGuess("");
 					}
 				}
+				console.log("line 110: ", currGuess)
+
+				if (prevGuesses.length === allowedGuesses) {
+
+
+					//TODO :: DO SOMETHING
+					// add guess check on backend, and if guesses === allowed, return correctWord
+					//setGameLost(true);
+
+
+				}
+
 				setCorrectWord(currGuess);
 				console.log("current GUESS ", currGuess)
 				setGameWon(true);
@@ -170,7 +188,7 @@ function App() {
 					prevGuesses,
 					gameId,
 					gameOn,
-					allowedGuesses: 6,
+					allowedGuesses,
 					currGuess,
 					setCurrGuess,
 					isUnique,

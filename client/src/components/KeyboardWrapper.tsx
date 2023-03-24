@@ -15,7 +15,7 @@ const KeyboardWrapper: FunctionComponent<IProps> = ({
 	onChange,
 	keyboardRef
 }) => {
-	const { checkGuess, guessedLetters, numLetters, currGuess, gameOn, gameWon } =
+	const { checkGuess, guessedLetters, numLetters, currGuess, gameOn } =
 		useContext(GameContext);
 
 	// for coloring the letters on the keyboard
@@ -49,7 +49,7 @@ const KeyboardWrapper: FunctionComponent<IProps> = ({
 				keyboardRef.current.destroy();
 				return;
 			}
-			
+
 			keyboardRef.current.clearInput();
 		}
 	};
