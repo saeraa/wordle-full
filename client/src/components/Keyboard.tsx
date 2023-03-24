@@ -3,15 +3,19 @@ import KeyboardWrapper from "./KeyboardWrapper";
 import { GameContext } from "../context/gameContext";
 
 const KeyboardComponent: FunctionComponent = () => {
-	const {currGuess,setCurrGuess, numLetters} = useContext(GameContext);
+	const {currGuess,setCurrGuess, numLetters, gameOn} = useContext(GameContext);
   const [input, setInput] = useState("");
   const keyboard = useRef(null);
 
   const onChangeInput = (event: ChangeEvent<HTMLInputElement>): void => {
+    // if game hasn't started, don't do anything
+    if (!gameOn) return;
+
     const input = event.target.value.toUpperCase();
-    if (input.length >= numLetters) {
-      return
-    }
+
+    // if (input.length >= numLetters) {
+    //   return
+    // }
     setInput(input);
     //console.log(input);
     // setCurrGuess("" + input);
@@ -21,7 +25,7 @@ const KeyboardComponent: FunctionComponent = () => {
   };
 
   useEffect(() => {
-    console.log("input : " + input)
+    //console.log("input : " + input)
     setCurrGuess(input)
   }, [input]);
 

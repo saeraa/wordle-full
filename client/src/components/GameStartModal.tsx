@@ -1,10 +1,9 @@
 import IconClose from "../assets/icon-close.svg";
 import IconMinus from "../assets/icon-minus.svg";
 import IconPlus from "../assets/icon-plus.svg";
-import useAxios from "../utils/useAxios";
 import { useContext } from "react";
 import { GameContext } from "../context/gameContext";
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 
 type GameModalProps = {
 	onClose: () => void;
@@ -20,6 +19,7 @@ const GameModal = ({ onClose }: GameModalProps) => {
 		setGameOn,
 		setGameId
 	} = useContext(GameContext);
+
 	const options = {
 		method: "get",
 		url: `http://localhost:5080/api/word?length=${numLetters}&unique=${isUnique}`,
@@ -27,7 +27,6 @@ const GameModal = ({ onClose }: GameModalProps) => {
 			accept: "Application/json"
 		}
 	};
-	// const { response, loading, error, sendData } = useAxios(options);
 
 	const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const checked = e.target.checked;
@@ -57,16 +56,19 @@ const GameModal = ({ onClose }: GameModalProps) => {
 		const fetchData = async (params: AxiosRequestConfig) => {
 			try {
 				const response = await axios.request(params);
-				console.log(response);
+				//console.log(response);
         if (response.status === 200) {
           onClose();
         }
-        console.log(response.data.gameId);
+
+				
+				//TODO if response.status == something else, do something
+
+
         setGameId(response.data.gameId);
-        // setGameId(response.data.gameId);
         setStartTime(new Date(response.data.startTime));
         setGameOn(true);
-			} catch (err: any) {
+			} catch (err: unknown) {
 				console.log(err);
 			} finally {
 				console.log("finally!");

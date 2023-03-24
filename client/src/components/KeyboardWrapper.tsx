@@ -1,9 +1,11 @@
-import {AxiosRequestConfig} from "axios";
-import React, { FunctionComponent, useState, MutableRefObject, useContext } from "react";
+import { AxiosRequestConfig } from "axios";
+import {
+	FunctionComponent,
+	MutableRefObject,
+	useContext
+} from "react";
 import Keyboard, { KeyboardReactInterface } from "react-simple-keyboard";
-//import "react-simple-keyboard/build/css/index.css";
 import { GameContext } from "../context/gameContext";
-import useAxios from "../utils/useAxios";
 import axios from "axios";
 
 interface IProps {
@@ -15,68 +17,70 @@ const KeyboardWrapper: FunctionComponent<IProps> = ({
 	onChange,
 	keyboardRef
 }) => {
-	const {guessedLetters, numLetters, gameId, currGuess} = useContext(GameContext);
+	const { guessedLetters, numLetters, gameId, currGuess, gameOn } =
+		useContext(GameContext);
 	const options = {
-    method: "post",
-    url: `http://localhost:5080/api/guess`,
-    headers: {
-      accept: '*/*',
-			'Content-Type': 'application/json'
-    },
+		method: "post",
+		url: `http://localhost:5080/api/guess`,
+		headers: {
+			accept: "*/*",
+			"Content-Type": "application/json"
+		},
 		data: {
 			gameId: gameId,
 			guess: currGuess
 		}
-  }
-  //const { response, loading, error, sendData } = useAxios(options);
+	};
 
+	// for coloring the letters on the keyboard
 	const correctLetters = guessedLetters
-	.filter(a => a.result === "correct")
-	.reduce((prev,curr) => prev + " " + curr.letter, "")
-	.toLowerCase();
+		.filter((a) => a.result === "correct")
+		.reduce((prev, curr) => prev + " " + curr.letter, "")
+		.toLowerCase();
 
 	const incorrectLetters = guessedLetters
-	.filter(a => a.result === "incorrect")
-	.reduce((prev,curr) => prev + " " + curr.letter, "")
-	.toLowerCase();
+		.filter((a) => a.result === "incorrect")
+		.reduce((prev, curr) => prev + " " + curr.letter, "")
+		.toLowerCase();
 
 	const misplacedLetters = guessedLetters
-	.filter(a => a.result === "misplaced")
-	.reduce((prev,curr) => prev + " " + curr.letter, "")
-	.toLowerCase();
+		.filter((a) => a.result === "misplaced")
+		.reduce((prev, curr) => prev + " " + curr.letter, "")
+		.toLowerCase();
 
 
-	  const handleKeyPress = async (e: string) => {
-			if (e === "{enter}") {
-				console.log("Submitting guess: " + currGuess + "! Clearing input!");
-				//console.log(sendData());
+	const handleKeyPress = async (e: string) => {
+		// if game hasn't started, don't do anything
+		if (!gameOn) return;
 
-				const fetchData = async (params: AxiosRequestConfig) => {
-					try {
-						const result = await axios.request(params);
-						console.log(result);
-					} catch( err: any ) {
-						console.log(err);
-					} finally {
-						console.log("finally");
-					}
-			 };
+		if (e === "{enter}") {
+			// don't send to the server if it's not a word of the proper length
+			if (currGuess.length !== numLetters) return;
 
-			 await fetchData(options);
+			console.log("Submitting guess: " + currGuess + "! Clearing input!");
 
-				// while (loading) {
-				// 	// do nothing
-				// }
-				// if (response.status === 200) {
-				// 	console.log(response)
-				// }
-				keyboardRef.current.clearInput();
-			}
-	  }
+			const fetchData = async (params: AxiosRequestConfig) => {
+				try {
+					const result = await axios.request(params);
+					console.log(result);
+					// if result.data == "no such word" show error message
+				} catch (err: any) {
+					console.log(err);
+				} finally {
+					console.log("finally");
+				}
+			};
+
+			await fetchData(options);
+
+			// clear the keyboard cache
+			keyboardRef.current.clearInput();
+		}
+	};
 
 	return (
 		<Keyboard
-		  onKeyPress={handleKeyPress}
+			onKeyPress={handleKeyPress}
 			theme={"text-red-200 hg-theme-default"}
 			display={{ "{backspace}": " ", "{enter}": " " }}
 			physicalKeyboardHighlight={true}
@@ -87,6 +91,7 @@ const KeyboardWrapper: FunctionComponent<IProps> = ({
 			keyboardRef={(r) => (keyboardRef.current = r)}
 			layoutName={"default"}
 			onChange={(e) => {
+				if (!gameOn) return;
 				if (e.length > numLetters) {
 					return;
 				}

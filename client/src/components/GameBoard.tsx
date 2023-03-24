@@ -15,29 +15,30 @@ const GameBoard = () => {
 
 	useEffect(() => {
 		const previous = prevGuesses.flat();
-		console.log("prev ", previous);
+		//console.log("prev ", previous);
 
-		prevGuesses.forEach((array) => {
-			console.log(array);
-		});
+		// prevGuesses.forEach((array) => {
+		// 	console.log(array);
+		// });
 
 		const thing: Letter[] = currGuess.split("").map((letter) => ({
 			letter: letter,
 			result: ""
 		}));
 
+		// set list of letters to previous guesses, followed by current guess and then pad the remainder of the array with blank letters
 		setLetters(() => {
 			let newArray = new Array(...previous, ...thing);
 			const prevlength = newArray.length;
 			newArray.length = num;
-			return newArray.fill(emptyLetter, (prevlength));
+			return newArray.fill(emptyLetter, prevlength);
 		});
-
 	}, [currGuess]);
 
-	console.log("letters: ", letters);
+	//console.log("letters: ", letters);
 
 	const letterElement = letters.map((letter, i) => {
+		// if for some reason the array is longer than it's supposed to be, don't show extra letters
 		if (i > num - 1) {
 			return null;
 		}
@@ -50,6 +51,7 @@ const GameBoard = () => {
 		);
 	});
 
+	// this is for displaying the correct amount of rows and cols in the grid depending on amount of letters chosen
 	let numCols = `grid-c-${numLetters}`;
 	let numRows = `grid-r-${allowedGuesses}`;
 
