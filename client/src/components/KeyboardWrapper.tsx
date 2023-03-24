@@ -15,7 +15,7 @@ const KeyboardWrapper: FunctionComponent<IProps> = ({
 	onChange,
 	keyboardRef
 }) => {
-	const { checkGuess, guessedLetters, numLetters, currGuess, gameOn } =
+	const { checkGuess, guessedLetters, numLetters, currGuess, gameOn, gameWon } =
 		useContext(GameContext);
 
 	// for coloring the letters on the keyboard
@@ -44,7 +44,10 @@ const KeyboardWrapper: FunctionComponent<IProps> = ({
 			if (currGuess.length !== numLetters) return;
 
 			await checkGuess();
-
+			if (!gameOn) {
+				keyboardRef.current.destroy();
+				return;
+			}
 			keyboardRef.current.clearInput();
 		}
 	};

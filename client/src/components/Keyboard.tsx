@@ -19,12 +19,13 @@ const KeyboardComponent: FunctionComponent = () => {
   };
 
   useEffect(() => {
+    console.log("keyboard useeffect: resetting current guess")
     setCurrGuess(input)
   }, [input]);
 
   return (
     <div className="max-w-lg m-auto p-1">
-      <input className="text-black"
+      <input className="text-black hidden"
         value={input}
         placeholder={"Tap on the virtual keyboard to start"}
         onChange={e => onChangeInput(e)}

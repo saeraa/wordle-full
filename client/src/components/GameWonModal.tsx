@@ -1,6 +1,6 @@
 import IconClose from "../assets/icon-close.svg";
 import IconStar from "../assets/icon-star.svg";
-import { useContext, FormEvent, ChangeEvent, useState } from "react";
+import { useContext, FormEvent, ChangeEvent, useState, useEffect } from "react";
 import { GameContext } from "../context/gameContext";
 import axios, { AxiosRequestConfig } from "axios";
 import Confetti from "./Confetti";
@@ -12,8 +12,8 @@ type GameModalProps = {
 const GameModal = ({ onClose }: GameModalProps) => {
 	const [input, setInput] = useState("");
 	const [formSent, setFormSent] = useState(false);
-	const { currGuess, prevGuesses, gameId, resetGame } = useContext(GameContext);
-	
+	const { correctWord, prevGuesses, gameId, resetGame, gameWon } = useContext(GameContext);
+
 	const options = {
 		method: "post",
 		url: `http://localhost:5080/api/highscore`,
@@ -64,9 +64,10 @@ const GameModal = ({ onClose }: GameModalProps) => {
 					</h2>
 
 					<div className="flex gap-2 text-md items-center">
-						The word was: <span className="text-purple-200 font-bold">{currGuess}</span> and you guessed it in{" "}
+						The word was: <span className="text-purple-200 font-bold">{correctWord}</span> and you guessed it in{" "}
 						{prevGuesses.length} tries!
 					</div>
+
 					{!formSent ? (
 						<form className="m-4 flex flex-col text-sm" onSubmit={handleSubmit}>
 							<h2 className="text-neutral-300 py-2">Add to highscore?</h2>

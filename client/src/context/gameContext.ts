@@ -3,6 +3,7 @@ import { LetterGroup } from "../interfaces/Letter";
 
 interface GameContextType {
 	showStartModal: boolean;
+	correctWord: string;
 	setShowStartModal: React.Dispatch<React.SetStateAction<boolean>>;
 	checkGuess: () => void;
   resetGame: () => void;

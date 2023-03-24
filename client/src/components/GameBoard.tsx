@@ -16,14 +16,14 @@ const GameBoard = () => {
 	useEffect(() => {
 		const previous = prevGuesses.flat();
 
-		const thing: Letter[] = currGuess.split("").map((letter) => ({
+		const currentGuessedLetters: Letter[] = currGuess.split("").map((letter) => ({
 			letter: letter,
 			result: ""
 		}));
 
 		// set list of letters to previous guesses, followed by current guess and then pad the remainder of the array with blank letters
 		setLetters(() => {
-			let newArray = new Array(...previous, ...thing);
+			let newArray = new Array(...previous, ...currentGuessedLetters);
 			const prevlength = newArray.length;
 			newArray.length = num;
 			return newArray.fill(emptyLetter, prevlength);

@@ -12,6 +12,7 @@ function App() {
 	const [numLetters, setNumLetters] = useState(5);
 	const [gameId, setGameId] = useState<string>("");
 	const [currGuess, setCurrGuess] = useState("");
+	const [correctWord, setCorrectWord] = useState("");
 	const [errorText, setErrorText] = useState("");
 	const [prevGuesses, setPrevGuesses] = useState([]);
 	const [guessedLetters, setGuessedLetters] = useState([]);
@@ -26,9 +27,11 @@ function App() {
 		setGameId("");
 		setErrorText("");
 		setCurrGuess("");
+		console.log("resetting current guess")
 		setPrevGuesses([]);
 		setGuessedLetters([]);
 		setShowStartModal(true);
+		setCorrectWord("");
 	}
 
 	async function checkGuess() {
@@ -55,9 +58,17 @@ function App() {
 
 				for (const guessedLetter of guessResult) {
 					if (guessedLetter.result !== "correct") {
+						console.log("yas", guessedLetter.result)
 						return;
+					} 
+					else if (guessedLetter.result === "incorrect" || "misplaced") 
+					{
+						console.log("no", guessedLetter.result)
+						setCurrGuess("");
 					}
 				}
+				setCorrectWord(currGuess);
+				console.log("current GUESS ", currGuess)
 				setGameWon(true);
 				console.log("GameWONNNN!");
 				setGameOn(false);
@@ -65,6 +76,7 @@ function App() {
 			} catch (err: any) {
 				console.log(err);
 			} finally {
+				console.log("current GUESS ", currGuess)
 				console.log("finally");
 			}
 		};
@@ -106,6 +118,7 @@ function App() {
 		<div className="App">
 			<GameContext.Provider
 				value={{
+					correctWord,
 					showStartModal,
 					setShowStartModal,
 					checkGuess,
