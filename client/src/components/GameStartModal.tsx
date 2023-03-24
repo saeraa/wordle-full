@@ -5,12 +5,10 @@ import { useContext } from "react";
 import { GameContext } from "../context/gameContext";
 import axios, { AxiosRequestConfig } from "axios";
 
-type GameModalProps = {
-	onClose: () => void;
-};
 
-const GameModal = ({ onClose }: GameModalProps) => {
+const GameModal = () => {
 	const {
+		setShowStartModal,
 		setIsUnique,
 		isUnique,
 		setNumLetters,
@@ -58,7 +56,7 @@ const GameModal = ({ onClose }: GameModalProps) => {
 				const response = await axios.request(params);
 				//console.log(response);
         if (response.status === 200) {
-          onClose();
+          setShowStartModal(false);
         }
 
 				
@@ -126,7 +124,7 @@ const GameModal = ({ onClose }: GameModalProps) => {
 						Let's go!
 					</button>
 				</div>
-				<button onClick={onClose} className="absolute top-2 right-2">
+				<button onClick={() => setShowStartModal(false)} className="absolute top-2 right-2">
 					<img src={IconClose} alt="" />
 				</button>
 			</div>

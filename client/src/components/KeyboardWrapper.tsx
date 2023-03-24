@@ -17,21 +17,10 @@ const KeyboardWrapper: FunctionComponent<IProps> = ({
 	onChange,
 	keyboardRef
 }) => {
-	const { guessedLetters, numLetters, gameId, currGuess, gameOn, setError, setErrorText, setGuessedLetters, setPrevGuesses, setCurrGuess, setGameWon, setGameOn } =
+	const { checkGuess, guessedLetters, numLetters, gameId, currGuess, gameOn, setError, setErrorText, setGuessedLetters, setPrevGuesses, setCurrGuess, setGameWon, setGameOn } =
 		useContext(GameContext);
 
-	const options = {
-		method: "post",
-		url: `http://localhost:5080/api/guess`,
-		headers: {
-			accept: "*/*",
-			"Content-Type": "application/json"
-		},
-		data: {
-			gameId: gameId,
-			guess: currGuess
-		}
-	};
+
 
 	// for coloring the letters on the keyboard
 	const correctLetters = guessedLetters
@@ -58,59 +47,61 @@ const KeyboardWrapper: FunctionComponent<IProps> = ({
 			// don't send to the server if it's not a word of the proper length
 			if (currGuess.length !== numLetters) return;
 
-			console.log("Submitting guess: " + currGuess + "! Clearing input!");
+			console.log("Submitting guess: " + currGuess + "!");
 
-			const fetchData = async (params: AxiosRequestConfig) => {
-				try {
-					const result = await axios.request(params);
-					console.log(result);
+			await checkGuess();
+
+			// const fetchData = async (params: AxiosRequestConfig) => {
+			// 	try {
+			// 		const result = await axios.request(params);
+			// 		console.log(result);
 
 
-					//TODO if result.data == "no such word" show error message
-					if (result.data == "No such word") {
-						setError(true);
-						setErrorText("No such word: " + currGuess)
-						return;
-					}
+			// 		//TODO if result.data == "no such word" show error message
+			// 		if (result.data == "No such word") {
+			// 			setError(true);
+			// 			setErrorText("No such word: " + currGuess)
+			// 			return;
+			// 		}
 
-					const guessResult = result.data;
+			// 		const guessResult = result.data;
 
-					setGuessedLetters(prev => {
-						return [...prev, ...guessResult]
-					})
-					setPrevGuesses(prev => {
-						return [...prev, guessResult]
-					})
-					setCurrGuess("");
+			// 		setGuessedLetters(prev => {
+			// 			return [...prev, ...guessResult]
+			// 		})
+			// 		setPrevGuesses(prev => {
+			// 			return [...prev, guessResult]
+			// 		})
+			// 		setCurrGuess("");
 					
 
 
-					//TODO else save result to previous guesses
-					// add guessed letters
-					// clear currGuess
-					// 
+			// 		//TODO else save result to previous guesses
+			// 		// add guessed letters
+			// 		// clear currGuess
+			// 		// 
 
-					// check result for all correct
+			// 		// check result for all correct
 
-						for (const guessedLetter of guessResult) {
-							if (guessedLetter.result !== "correct") {
-								return;
-							}
-						}
-						setGameWon(true);
-						console.log("GameWONNNN!")
-						setGameOn(false);
+			// 			for (const guessedLetter of guessResult) {
+			// 				if (guessedLetter.result !== "correct") {
+			// 					return;
+			// 				}
+			// 			}
+			// 			setGameWon(true);
+			// 			console.log("GameWONNNN!")
+			// 			setGameOn(false);
 
 
 
-				} catch (err: any) {
-					console.log(err);
-				} finally {
-					console.log("finally");
-				}
-			};
+			// 	} catch (err: any) {
+			// 		console.log(err);
+			// 	} finally {
+			// 		console.log("finally");
+			// 	}
+			// };
 
-			await fetchData(options);
+			// await fetchData(options);
 
 			// clear the keyboard cache
 			keyboardRef.current.clearInput();

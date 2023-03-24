@@ -2,6 +2,9 @@ import { createContext, useContext } from "react";
 import { LetterGroup } from "../interfaces/Letter";
 
 interface GameContextType {
+	showStartModal: boolean;
+	setShowStartModal: React.Dispatch<React.SetStateAction<boolean>>;
+	checkGuess: () => void;
   resetGame: () => void;
   error: boolean;
   errorText: string;

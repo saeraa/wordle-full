@@ -8,16 +8,13 @@ import Error from "../components/Error";
 import { GameContext } from "../context/gameContext";
 
 const Game = () => {
-	const [showStartModal, setShowStartModal] = useState(true);
-	const { error, errorText, gameWon, setGameWon } = useContext(GameContext);
-
-
+	const { error, errorText, gameWon, setGameWon, showStartModal, setShowStartModal } = useContext(GameContext);
 
 	return (
 		<div className="max-w-2xl my-4 bg-neutral-500 mx-auto pt-2 pb-8">
 			{showStartModal &&
 				createPortal(
-					<StartModal onClose={() => setShowStartModal(false)} />,
+					<StartModal />,
 					document.body
 				)}
 			{gameWon &&

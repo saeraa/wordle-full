@@ -60,7 +60,7 @@ const GameBoard = () => {
 		numRows = `grid-r-${allowedGuesses}`;
 	}, [numLetters, allowedGuesses]);
 
-	const gridClasses = `grid ${numCols} ${numRows} max-w-md gap-2 xs:gap-3 text-md xs:text-xl sm:text-2xl sm:text-4xl font-mono font-extrabold m-auto mb-5 p-1 sm:p-2`;
+	const gridClasses = `grid ${numCols} ${numRows} max-w-md gap-2 xs:gap-3 text-3xl xs:text-4xl font-mono font-extrabold m-auto mb-5 p-1`;
 
 	return (
 		<div>

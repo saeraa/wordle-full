@@ -68,7 +68,7 @@ const GameModal = ({ onClose }: GameModalProps) => {
 					</h2>
 
 					<div className="flex gap-2 text-md items-center">
-						The word was: <span className="text-purple-200 font-bold">fatty{currGuess}</span> and you guessed it in{" "}
+						The word was: <span className="text-purple-200 font-bold">{currGuess}</span> and you guessed it in{" "}
 						{prevGuesses.length} tries!
 					</div>
 					{!formSent ? (

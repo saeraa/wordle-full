@@ -1,8 +1,10 @@
 import Game from "./routes/Game";
 import { useState, useEffect } from "react";
 import { GameContext } from "./context/gameContext";
+import axios, { AxiosRequestConfig } from "axios";
 
 function App() {
+	const [showStartModal, setShowStartModal] = useState(true);
 	const [gameWon, setGameWon] = useState(false);
 	const [isUnique, setIsUnique] = useState(false);
 	const [gameOn, setGameOn] = useState(false);
@@ -26,23 +28,76 @@ function App() {
 		setCurrGuess("");
 		setPrevGuesses([]);
 		setGuessedLetters([]);
+		setShowStartModal(true);
+	}
+
+	async function checkGuess() {
+		console.log("checking guess.... ");
+
+		const fetchData = async (params: AxiosRequestConfig) => {
+			try {
+				const result = await axios.request(params);
+				console.log(result);
+
+				if (result.data == "No such word") {
+					setError(true);
+					setErrorText("No such word: " + currGuess);
+					return;
+				}
+
+				const guessResult = result.data;
+
+				setGuessedLetters((prev) => {
+					return [...prev, ...guessResult];
+				});
+				setPrevGuesses((prev) => {
+					return [...prev, guessResult];
+				});
+
+				for (const guessedLetter of guessResult) {
+					if (guessedLetter.result !== "correct") {
+						return;
+					}
+				}
+				setGameWon(true);
+				console.log("GameWONNNN!");
+				setGameOn(false);
+				
+			} catch (err: any) {
+				console.log(err);
+			} finally {
+				console.log("finally");
+			}
+		};
+
+		const options = {
+			method: "post",
+			url: `http://localhost:5080/api/guess`,
+			headers: {
+				accept: "*/*",
+				"Content-Type": "application/json"
+			},
+			data: {
+				gameId: gameId,
+				guess: currGuess
+			}
+		};
+
+		await fetchData(options);
+
+		console.log("checking guess.... DONE ");
 	}
 
 	const updateGuessedLetters = () => {
-		const test = new Set();
-		test.add(2);
-		const thing = prevGuesses.flat();
+		const prevGuessesFlattened = prevGuesses.flat();
 		let guessesNow = currGuess.split("").map((letter) => {
 			return {
 				letter: letter,
 				result: ""
 			};
 		});
-		// console.log("currGuess ", currGuess)
-		// console.log("guessesNow ", guessesNow)
-		thing.concat(guessesNow);
-		// console.log("thing ", thing)
-		setGuessedLetters([...thing, ...guessesNow]);
+		prevGuessesFlattened.concat(guessesNow);
+		setGuessedLetters([...prevGuessesFlattened, ...guessesNow]);
 	};
 
 	useEffect(() => {
@@ -55,10 +110,14 @@ function App() {
 		<div className="App">
 			<GameContext.Provider
 				value={{
+					showStartModal,
+					setShowStartModal,
+					checkGuess,
 					resetGame,
 					error,
 					setError,
-					errorText, setErrorText,
+					errorText,
+					setErrorText,
 					startTime,
 					setStartTime,
 					gameWon,
