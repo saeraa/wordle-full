@@ -18,6 +18,42 @@ function App() {
 	const [guessedLetters, setGuessedLetters] = useState([]);
 	const [startTime, setStartTime] = useState(new Date());
 
+	
+	const startGame = async () => {
+		resetGame();
+
+		const fetchData = async (params: AxiosRequestConfig) => {
+			try {
+				const response = await axios.request(params);
+
+        if (response.status === 200) {
+          setShowStartModal(false);
+        }
+
+				//TODO if response.status == something else, do something
+
+        setGameId(response.data.gameId);
+        setStartTime(new Date(response.data.startTime));
+        setGameOn(true);
+			} catch (err: unknown) {
+				console.log(err);
+			} finally {
+				console.log("finally!");
+			}
+		};
+
+		const options = {
+			method: "get",
+			url: `http://localhost:5080/api/word?length=${numLetters}&unique=${isUnique}`,
+			headers: {
+				accept: "Application/json"
+			}
+		};
+
+		fetchData(options);
+
+	};
+
 	function resetGame() {
 		setGameWon(false);
 		setGameOn(false);
@@ -118,6 +154,7 @@ function App() {
 		<div className="App">
 			<GameContext.Provider
 				value={{
+					startGame,
 					correctWord,
 					showStartModal,
 					setShowStartModal,
@@ -128,15 +165,11 @@ function App() {
 					errorText,
 					setErrorText,
 					startTime,
-					setStartTime,
 					gameWon,
 					setGameWon,
 					prevGuesses,
-					setPrevGuesses,
 					gameId,
-					setGameId,
 					gameOn,
-					setGameOn,
 					allowedGuesses: 6,
 					currGuess,
 					setCurrGuess,
@@ -145,7 +178,6 @@ function App() {
 					numLetters,
 					setNumLetters,
 					guessedLetters,
-					setGuessedLetters
 				}}
 			>
 				<Game />

@@ -44,10 +44,12 @@ const KeyboardWrapper: FunctionComponent<IProps> = ({
 			if (currGuess.length !== numLetters) return;
 
 			await checkGuess();
+
 			if (!gameOn) {
 				keyboardRef.current.destroy();
 				return;
 			}
+			
 			keyboardRef.current.clearInput();
 		}
 	};

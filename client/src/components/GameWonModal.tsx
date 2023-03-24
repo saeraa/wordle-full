@@ -12,7 +12,7 @@ type GameModalProps = {
 const GameModal = ({ onClose }: GameModalProps) => {
 	const [input, setInput] = useState("");
 	const [formSent, setFormSent] = useState(false);
-	const { correctWord, prevGuesses, gameId, resetGame, gameWon } = useContext(GameContext);
+	const { correctWord, prevGuesses, gameId, resetGame } = useContext(GameContext);
 
 	const options = {
 		method: "post",
@@ -69,7 +69,7 @@ const GameModal = ({ onClose }: GameModalProps) => {
 					</div>
 
 					{!formSent ? (
-						<form className="m-4 flex flex-col text-sm" onSubmit={handleSubmit}>
+						<form className="my-4 flex flex-col text-sm" onSubmit={handleSubmit}>
 							<h2 className="text-neutral-300 py-2">Add to highscore?</h2>
 							<span className="w-full">
 								<input

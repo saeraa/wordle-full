@@ -2,6 +2,7 @@ import { createContext, useContext } from "react";
 import { LetterGroup } from "../interfaces/Letter";
 
 interface GameContextType {
+	startGame: () => void;
 	showStartModal: boolean;
 	correctWord: string;
 	setShowStartModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -22,14 +23,9 @@ interface GameContextType {
 	isUnique: boolean;
 	numLetters: number;
 	setGameWon: React.Dispatch<React.SetStateAction<boolean>>;
-	setGameOn: React.Dispatch<React.SetStateAction<boolean>>;
 	setIsUnique: React.Dispatch<React.SetStateAction<boolean>>;
-	setPrevGuesses: React.Dispatch<React.SetStateAction<any[]>>;
-	setGameId: React.Dispatch<React.SetStateAction<string>>;
 	setNumLetters: React.Dispatch<React.SetStateAction<number>>;
 	setCurrGuess: React.Dispatch<React.SetStateAction<string>>;
-	setGuessedLetters: React.Dispatch<React.SetStateAction<any[]>>;
-	setStartTime: React.Dispatch<React.SetStateAction<Date>>;
 }
 
 const GameContext = createContext<GameContextType>({} as GameContextType);

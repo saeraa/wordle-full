@@ -3,27 +3,15 @@ import IconMinus from "../assets/icon-minus.svg";
 import IconPlus from "../assets/icon-plus.svg";
 import { useContext } from "react";
 import { GameContext } from "../context/gameContext";
-import axios, { AxiosRequestConfig } from "axios";
 
 const GameModal = () => {
 	const {
 		setShowStartModal,
 		setIsUnique,
-		isUnique,
 		setNumLetters,
 		numLetters,
-		setStartTime,
-		setGameOn,
-		setGameId
+		startGame
 	} = useContext(GameContext);
-
-	const options = {
-		method: "get",
-		url: `http://localhost:5080/api/word?length=${numLetters}&unique=${isUnique}`,
-		headers: {
-			accept: "Application/json"
-		}
-	};
 
 	const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const checked = e.target.checked;
@@ -47,31 +35,6 @@ const GameModal = () => {
 				setNumLetters(newNumber);
 			}
 		}
-	};
-
-	const startGame = async () => {
-		const fetchData = async (params: AxiosRequestConfig) => {
-			try {
-				const response = await axios.request(params);
-
-        if (response.status === 200) {
-          setShowStartModal(false);
-        }
-
-				//TODO if response.status == something else, do something
-
-        setGameId(response.data.gameId);
-        setStartTime(new Date(response.data.startTime));
-        setGameOn(true);
-			} catch (err: unknown) {
-				console.log(err);
-			} finally {
-				console.log("finally!");
-			}
-		};
-
-		fetchData(options);
-
 	};
 
 	return (

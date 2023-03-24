@@ -5,7 +5,7 @@ import { Letter } from "../interfaces/Letter";
 import { GameContext } from "../context/gameContext";
 
 const GameBoard = () => {
-	const { isUnique, allowedGuesses, numLetters, prevGuesses, currGuess } =
+	const { isUnique, allowedGuesses, numLetters, prevGuesses, currGuess, gameOn } =
 		useContext(GameContext);
 	const emptyLetter = { letter: "", result: "" };
 	const num = allowedGuesses * numLetters;
@@ -28,7 +28,7 @@ const GameBoard = () => {
 			newArray.length = num;
 			return newArray.fill(emptyLetter, prevlength);
 		});
-	}, [currGuess]);
+	}, [currGuess, gameOn]);
 
 	const letterElement = letters.map((letter, i) => {
 		// if for some reason the array is longer than it's supposed to be, don't show extra letters
