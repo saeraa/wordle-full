@@ -65,7 +65,7 @@ function checkWordGuess(gameId, guess) {
 	currentGame.guesses.push(result);
 
 	const gameOver = checkIfGameOver();
-
+	console.log(gameOver);
 	if (gameOver) {
 		result.push({
 			correctWord: currentGame.word

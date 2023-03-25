@@ -81,7 +81,6 @@ function App() {
 		const fetchData = async (params: AxiosRequestConfig) => {
 			try {
 				const result = await axios.request(params);
-				console.log(result);
 
 				if (result.data == "No such word") {
 					setError(true);
@@ -98,52 +97,28 @@ function App() {
 					return [...prev, guessResult];
 				});
 
-				
-				console.log("line 101: ", currGuess)
 				for (const guessedLetter of guessResult) {
 					// check through the result, if the letters are all correct, then game won
 					// if any letter is not correct, then check if there is a correctWord in the result
 					if (guessedLetter.hasOwnProperty("letter") && guessedLetter.result !== "correct") {
-						if (guessedLetter.correctWord) {
-							if (result.data[result.data.length - 1].hasOwnProperty("correctWord")) {
-								console.log("gameLost ", gameLost)
-								const correctWord = result.data[result.data.length - 1]
-								setCorrectWord(correctWord.correctWord);
-								setGameLost(true);
-								console.log("gameLost ", gameLost)
-							}
-							break;
+						if (result.data[result.data.length - 1].hasOwnProperty("correctWord")) {
+							const correctWord = result.data[result.data.length - 1]
+							setCorrectWord(correctWord.correctWord);
+							setGameLost(true);
+							return;
 						}
 						setCurrGuess("");
 						return;
 					} 
-					// else if (guessedLetter.result === "incorrect" || "misplaced") 
-					// {
-					// 	setCurrGuess("");
-					// }
-				}
-				console.log("line 110: ", currGuess)
-
-				if (prevGuesses.length === allowedGuesses) {
-
-
-					//TODO :: DO SOMETHING
-					// add guess check on backend, and if guesses === allowed, return correctWord
-					//setGameLost(true);
-
-
 				}
 
 				setCorrectWord(currGuess);
-				console.log("current GUESS ", currGuess)
 				setGameWon(true);
-				console.log("GameWONNNN!");
 				setGameOn(false);
 
 			} catch (err: any) {
 				console.log(err);
 			} finally {
-				console.log("current GUESS ", currGuess)
 				console.log("finally");
 			}
 		};

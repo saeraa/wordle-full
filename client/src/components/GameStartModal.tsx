@@ -1,10 +1,11 @@
 import IconClose from "../assets/icon-close.svg";
 import IconMinus from "../assets/icon-minus.svg";
 import IconPlus from "../assets/icon-plus.svg";
-import { useContext } from "react";
+import { useContext, useRef, useEffect } from "react";
 import { GameContext } from "../context/gameContext";
 
 const GameModal = () => {
+	const backdrop = useRef(null);
 	const {
 		setShowStartModal,
 		setIsUnique,
@@ -37,8 +38,26 @@ const GameModal = () => {
 		}
 	};
 
+	useEffect(() => {
+		const { current } = backdrop;
+		const keyHandler = (e: KeyboardEvent) => e.key === "Escape" &&  setShowStartModal(false);
+		const clickHandler = (e: MouseEvent) => e.target === current && setShowStartModal(false);
+
+		if (current) {
+			current.addEventListener("click", clickHandler);
+			window.addEventListener("keyup", keyHandler);
+		}
+
+		return () => {
+			if (current) {
+				current.removeEventListener("click", clickHandler);
+			}
+			window.removeEventListener("keyup", keyHandler);
+		};
+	});
+
 	return (
-		<div className="modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-40">
+		<div ref={backdrop} className="modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-40">
 			<div className="modal fixed top m-auto w-full max-w-xs bg-neutral-800 p-4 sm:p-10 rounded-md">
 				<div className="relative text-neutral-200 flex flex-col gap-4">
 					<h2
