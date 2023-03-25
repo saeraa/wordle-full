@@ -5,6 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "postinstall": "postcss static/styles/tailwind.css -o static/styles/style.css",
     "tailwind:css": "postcss static/styles/tailwind.css -o static/styles/style.css",
     "start": "nodemon ./src/index.js",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --verbose"
