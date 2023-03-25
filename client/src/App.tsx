@@ -98,24 +98,29 @@ function App() {
 					return [...prev, guessResult];
 				});
 
-				if (result.data[result.data.length - 1].hasOwnProperty("correctWord")) {
-					console.log("gameLost ", gameLost)
-					const correctWord = result.data[result.data.length - 1]
-					setCorrectWord(correctWord.correctWord);
-					setGameLost(true);
-					console.log("gameLost ", gameLost)
-				}
 				
 				console.log("line 101: ", currGuess)
 				for (const guessedLetter of guessResult) {
-					if (guessedLetter.result !== "correct") {
+					// check through the result, if the letters are all correct, then game won
+					// if any letter is not correct, then check if there is a correctWord in the result
+					if (guessedLetter.hasOwnProperty("letter") && guessedLetter.result !== "correct") {
+						if (guessedLetter.correctWord) {
+							if (result.data[result.data.length - 1].hasOwnProperty("correctWord")) {
+								console.log("gameLost ", gameLost)
+								const correctWord = result.data[result.data.length - 1]
+								setCorrectWord(correctWord.correctWord);
+								setGameLost(true);
+								console.log("gameLost ", gameLost)
+							}
+							break;
+						}
 						setCurrGuess("");
 						return;
 					} 
-					else if (guessedLetter.result === "incorrect" || "misplaced") 
-					{
-						setCurrGuess("");
-					}
+					// else if (guessedLetter.result === "incorrect" || "misplaced") 
+					// {
+					// 	setCurrGuess("");
+					// }
 				}
 				console.log("line 110: ", currGuess)
 
