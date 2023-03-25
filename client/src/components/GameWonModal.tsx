@@ -1,6 +1,13 @@
 import IconClose from "../assets/icon-close.svg";
 import IconStar from "../assets/icon-star.svg";
-import { useContext, FormEvent, ChangeEvent, useState } from "react";
+import {
+	useContext,
+	FormEvent,
+	ChangeEvent,
+	useState,
+	useEffect,
+	useRef
+} from "react";
 import { GameContext } from "../context/gameContext";
 import axios, { AxiosRequestConfig } from "axios";
 import Confetti from "./Confetti";
@@ -10,9 +17,11 @@ type GameModalProps = {
 };
 
 const GameModal = ({ onClose }: GameModalProps) => {
+	const backdrop = useRef(null);
 	const [input, setInput] = useState("");
 	const [formSent, setFormSent] = useState(false);
-	const { correctWord, prevGuesses, gameId, resetGame } = useContext(GameContext);
+	const { correctWord, prevGuesses, gameId, resetGame } =
+		useContext(GameContext);
 
 	const options = {
 		method: "post",
@@ -26,6 +35,24 @@ const GameModal = ({ onClose }: GameModalProps) => {
 			gameId: gameId
 		}
 	};
+
+	useEffect(() => {
+		const { current } = backdrop;
+		const keyHandler = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+		const clickHandler = (e: MouseEvent) => e.target === current && onClose();
+
+		if (current) {
+			current.addEventListener("click", clickHandler);
+			window.addEventListener("keyup", keyHandler);
+		}
+
+		return () => {
+			if (current) {
+				current.removeEventListener("click", clickHandler);
+			}
+			window.removeEventListener("keyup", keyHandler);
+		};
+	});
 
 	function handleSubmit(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault();
@@ -53,7 +80,10 @@ const GameModal = ({ onClose }: GameModalProps) => {
 	}
 
 	return (
-		<div className="modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-20">
+		<div
+			ref={backdrop}
+			className="modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-20"
+		>
 			<Confetti />
 			<div className="modal fixed top m-auto w-full max-w-md bg-neutral-800 p-4 sm:p-10 rounded-md">
 				<div className="text-neutral-200 flex flex-col gap-4">
@@ -64,12 +94,16 @@ const GameModal = ({ onClose }: GameModalProps) => {
 					</h2>
 
 					<div className="text-md items-center">
-						The word was: <span className="text-purple-200 font-bold">{correctWord}</span> and you guessed it in{" "}
-						{prevGuesses.length} tries!
+						The word was:{" "}
+						<span className="text-purple-200 font-bold">{correctWord}</span> and
+						you guessed it in {prevGuesses.length} tries!
 					</div>
 
 					{!formSent ? (
-						<form className="my-4 flex flex-col text-sm" onSubmit={handleSubmit}>
+						<form
+							className="my-4 flex flex-col text-sm"
+							onSubmit={handleSubmit}
+						>
 							<h2 className="text-neutral-300 py-2">Add to highscore?</h2>
 							<span className="w-full">
 								<input
@@ -77,7 +111,6 @@ const GameModal = ({ onClose }: GameModalProps) => {
 									placeholder="Your name"
 									onChange={handleInputChange}
 									value={input}
-									
 								/>
 								<button className="px-6  w-1/3  rounded-r-lg bg-neutral-600  text-neutral-200 font-bold p-2 border-neutral-400 border-t border-b border-r hover:bg-neutral-700 transition-colors duration-200">
 									Submit
