@@ -1,17 +1,17 @@
 {
   "name": "wordle-clone",
   "version": "1.0.0",
-  "description": "",
+  "description": "A clone of the popular game Wordle, made with React and Express",
+  "keywords": ["react", "wordle", "game", "express", "ejs", "tailwind"],
   "main": "index.js",
+  "repository": "https://github.com/saeraa/wordle-full",
+  "bugs": "https://github.com/saeraa/wordle-full/issues",
   "scripts": {
     "postinstall": "cd server && npm install && cd .. && cd client && npm install",
     "build": "cd client && npm run build",
     "start": "cd server && npm start",
     "test": "cd server && npm test && cd .. && cd client && npm test"
   },
-  "author": "saeraa",
-  "license": "ISC",
-  "devDependencies": {
-
-  }
+  "author": "Sara Andersen Ekholm <saeraa@gmail.com> (https://github.com/saeraa)",
+  "license": "ISC"
 }
