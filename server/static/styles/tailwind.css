@@ -4,6 +4,11 @@
 @tailwind utilities;
 
 @layer utilities {
+
+  .shadow-text {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.573);
+  }
+
   .incorrect {
     @apply bg-neutral-700 text-neutral-400 border-neutral-900/90;
   }

@@ -1,10 +1,74 @@
-<main>
+<main class="max-w-2xl mx-auto">
   <div class="min-h-full max-w-full p-4 m-4 bg-neutral-800">
-    <h1 class="p-2 sm:p-3 bg-neutral-600 font-mono font-semibold uppercase">How to play Wordle</h1>
-    <p class="p-4">Some text</p>
-    <h1 class="p-2 sm:p-3 bg-neutral-600 font-mono font-semibold uppercase">About this project</h1>
-    <p class="p-4">Some text</p>
-    <h1 class="p-2 sm:p-3 bg-neutral-600 font-mono font-semibold uppercase">About the creator</h1>
-    <p class="p-4">Some text</p>
+    <h1 class="mt-2 p-2 sm:p-3 bg-neutral-700 font-mono font-thin uppercase text-purple-200 drop-shadow text-xl tracking-wider shadow-text">How to play Wordle</h1>
+    <p class="p-4 font-light">In the original Wordle game, you get one word a day. Here, I've been more generous and you can play as many times as you want! Just press <a href="/game" class="text-purple-300 font-bold hover:text-purple-400">game</a> in the menu above to get started.</p>
+    <p class="p-4 font-light">You have six tries to guess the word.</p>
+    <p class="p-4 font-light">Type in your guess with your keyboard or select the letters with your mouse and hit enter for your guess.</p>
+    <p class="p-4 font-light">If your guess isn't a proper word (as in: is included in <a href="https://github.com/dwyl/english-words" title="Github repository with a huge list of English words" class="text-purple-300 font-bold hover:text-purple-400">this dictionary</a>) you will get an error message and you may try again.</p>
+    <p class="p-4 font-light">The colors of the tiles will change after you submit your word. An orange tile indicates that you picked the right letter but it's in the wrong spot. The green tile indicates that you picked the right letter in the correct spot. The gray tile indicates that the letter you picked is not included in the word at all.</p>
+    <p class="p-4 font-light">Continue until you solve the Wordle or run out of guesses. Good luck!</p>
+    <h1 class="mt-2 p-2 sm:p-3 bg-neutral-700 font-mono font-thin uppercase text-purple-200 drop-shadow text-xl tracking-wider shadow-text">About this project</h1>
+    <p class="p-4 font-light">This is a project made for a school course: <em>Advanced JavaScript - Fullstack</em>.</p>
+    <p class="p-4 font-light">Parts of the frontend (the game portion) is made with React. The remainder is server-side rendered with ExpressJs. </p>
+    <p class="p-4 font-light">Github repository available <a href="https://github.com/saeraa/wordle-full" title="Github repository with the code for this project" class="text-purple-300 font-bold hover:text-purple-400">here</a>.</p>
+    <details class="p-4 bg-neutral-900">
+      <summary class="cursor-pointer">Project instructions (in Swedish)</summary>
+      <h3 class="py-2 text-xl font-bold text-purple-300">Wordle-spel med highscore-lista</h3>
+      <p>
+        I denna uppgift ska du bygga ett Wordle-inspirerat spel med highscore-lista och “om”-sida.</p>
+      <h4 class="pt-6 pb-2 text-xl font-semibold text-purple-300">Moment</h4>
+      <h5 class="pb-2 pt-4 text-lg font-bold text-purple-400">Generellt</h5>
+      <ul class="list-disc list-inside">
+        <li>
+          Spelet ska byggas i form av en fullstack-applikation med tre sidor (routes/URL:er): En startsida där man kan
+          spela spelet, en statisk informationssida om projektet, och en server-side renderad highscore-lista
+        </li>
+        <li>
+          Serva hela siten med hjälp av node på port 5080, exempelvis med hjälp av express
+        </li>
+      </ul>
+      <h5 class="pb-2 pt-4 text-lg font-bold text-purple-400">Spelet</h5>
+      <ul class="list-disc list-inside">
+        <li>
+          Spelet ska utvecklas fullstack, med GUI utvecklat i React, och delar av spellogiken på backend via ett API.
+        </li>
+        <li>
+          Spelets regler definieras av de algoritmer som beskrevs i kursens första uppgift: <br />
+          <ul class="list-disc list-inside">
+            <li class="px-4">Spelet väljer ut ett slumpmässigt ord varje gång spelet startar - användaren kan bestämma
+              hur många bokstäver ordet ska ha och om det får innehålla bokstäver som upprepas</li>
+            <li class="px-4">Användaren gissar vad ordet är och spelet ger feedback enligt feedback-algoritmen</li>
+            <li class="px-4">När användaren gissar rätt ord är spelet över</li>
+          </ul>
+        </li>
+        <li>Det slumpmässiga urvalet av ord ska ske på servern via ett API-anrop. En datakälla kan vara den datafil som
+          finns på https://github.com/dwyl/english-words</li>
+        <li>Efter att användaren klarat spelet ska hen få möjlighet att ange sitt namn och skicka in resultatet till en
+          highscore-lista. Den data som skickas in ska inkludera namnet, tiden från att spelet startade till att det
+          slutade, gissningarna, samt inställningarna avseende ordets längd och unika bokstäver</li>
+      </ul>
+      <h5 class="pb-2 pt-4 text-lg font-bold text-purple-400">Highscore-lista</h5>
+      <ul class="list-disc list-inside">
+        <li>På en separat sida/route ska en highscore-lista visas</li>
+        <li>Listan ska server-siderenderas</li>
+      </ul>
+      <h5 class="pb-2 pt-4 text-lg font-bold text-purple-400">Informationssida</h5>
+      <ul class="list-disc list-inside">
+        <li>En statisk sida där ni beskriver projektet</li>
+      </ul>
+      <h4 class="pt-6 pb-2 text-xl font-semibold text-purple-300">Valfria moment</h4>
+      <p>För ytterligare fördjupning och utmaning kan följande moment utföras. Inget av följande är nödvändigt för att
+        uppgiften ska bli godkänd, men inkluderas i bedömningen av kursbetyget.</p>
+      <ul class="list-disc list-inside">
+        <li>
+          Highscore-listan filtreras på användarens inställningar avseende ordets längd och unika bokstäver.
+          Filtreringen ska ske server-side och varje filterinställning ska ha en egen URL</li>
+        <li>Spelet och API ska implementeras på ett sådant sätt att det inte är möjligt att fuska, genom att backend
+          ansvarar för feedback och tidtagning från att ordet väljs ut, till att spelet är över</li>
+        <li>Hela eller delar av spelet (exempelvis bara backend) utvecklas med hjälp av TypeScript</li>
+    </details>
+    <h1 class="mt-2 p-2 sm:p-3 bg-neutral-700 font-mono font-thin uppercase text-purple-200 drop-shadow text-xl tracking-wider shadow-text">Contact</h1>
+    <div class="flex p-4"><a href="https://github.com/saeraa" title="My GitHub account"><img src="icon-github.svg" alt="GitHub icon" class="w-10" /></a>
+      <a href="https://www.linkedin.com/in/sara-andersen-ekholm/" title="My LinkedIn account"><img src="icon-linkedin.svg" alt="LinkedIn icon"  class="w-10" /></a></div>
   </div>
 </main>
