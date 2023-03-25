@@ -10,13 +10,20 @@ import KeyboardWrapper from "./KeyboardWrapper";
 import { GameContext } from "../context/gameContext";
 
 const KeyboardComponent: FunctionComponent = () => {
-	const { setCurrGuess, gameOn } = useContext(GameContext);
+	const { setCurrGuess, gameOn, gameWon } = useContext(GameContext);
 	const [input, setInput] = useState("");
 	const keyboard = useRef(null);
 
 	const onChangeInput = (event: ChangeEvent<HTMLInputElement>): void => {
+
 		// if game hasn't started, don't do anything
 		if (!gameOn) return;
+
+		if (gameWon === true) {
+			setInput("");
+			keyboard.current.setInput("");
+			return
+		};
 
 		const input = event.target.value.toUpperCase();
 

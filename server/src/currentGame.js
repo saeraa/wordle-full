@@ -32,6 +32,7 @@ function createNewGame(lengthOfWord, isUnique) {
 		(currentGame.letters = lengthOfWord),
 		(currentGame.isUnique = isUnique),
 		(currentGame.startTime = new Date());
+		currentGame.guesses.length = 0;
 
 		console.log(word);
 
@@ -61,7 +62,25 @@ function checkWordGuess(gameId, guess) {
 
 	const result = guessWord(guess, currentGame.word);
 
+	currentGame.guesses.push(result);
+
+	const gameOver = checkIfGameOver();
+
+	if (gameOver) {
+		result.push({
+			correctWord: currentGame.word
+		});
+	}
 	return result;
+}
+
+function checkIfGameOver() {
+
+	if (currentGame.guesses.length === currentGame.allowedGuesses) {
+		return true;
+	}
+	
+	return false;
 }
 
 export { createNewGame, checkWordGuess };

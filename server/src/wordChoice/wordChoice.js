@@ -5,7 +5,6 @@ import {
 
 
 export default function wordChoice(array, length, onlyUniqueLetters) {
-	//console.log("wordChoice ", onlyUniqueLetters)
 	const resultingArray = array
 		.filter((word) =>
 			onlyUniqueLetters === "true" || onlyUniqueLetters === true

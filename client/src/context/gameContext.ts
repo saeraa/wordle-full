@@ -2,6 +2,7 @@ import { createContext, useContext } from "react";
 import { LetterGroup } from "../interfaces/Letter";
 
 interface GameContextType {
+	gameLost: boolean;
 	startGame: () => void;
 	showStartModal: boolean;
 	correctWord: string;

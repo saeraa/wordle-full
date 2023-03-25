@@ -97,6 +97,14 @@ function App() {
 				setPrevGuesses((prev) => {
 					return [...prev, guessResult];
 				});
+
+				if (result.data[result.data.length - 1].hasOwnProperty("correctWord")) {
+					console.log("gameLost ", gameLost)
+					const correctWord = result.data[result.data.length - 1]
+					setCorrectWord(correctWord.correctWord);
+					setGameLost(true);
+					console.log("gameLost ", gameLost)
+				}
 				
 				console.log("line 101: ", currGuess)
 				for (const guessedLetter of guessResult) {
@@ -172,6 +180,7 @@ function App() {
 		<div className="App">
 			<GameContext.Provider
 				value={{
+					gameLost,
 					startGame,
 					correctWord,
 					showStartModal,

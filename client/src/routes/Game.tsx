@@ -4,11 +4,12 @@ import { useContext } from "react";
 import { createPortal } from "react-dom";
 import StartModal from "../components/GameStartModal";
 import WonModal from "../components/GameWonModal";
+import LostModal from "../components/GameLostModal";
 import Error from "../components/Error";
 import { GameContext } from "../context/gameContext";
 
 const Game = () => {
-	const { error, errorText, gameWon, setGameWon, showStartModal, setShowStartModal } = useContext(GameContext);
+	const { error, errorText, gameWon, setGameWon, showStartModal, gameLost, setShowStartModal } = useContext(GameContext);
 
 	return (
 		<div className="max-w-2xl my-4 bg-neutral-500 mx-auto pt-2 pb-8">
@@ -20,6 +21,11 @@ const Game = () => {
 			{gameWon &&
 				createPortal(
 					<WonModal onClose={() => setGameWon(false)} />,
+					document.body
+				)}
+			{gameLost &&
+				createPortal(
+					<LostModal />,
 					document.body
 				)}
 

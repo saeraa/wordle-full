@@ -15,7 +15,7 @@ const KeyboardWrapper: FunctionComponent<IProps> = ({
 	onChange,
 	keyboardRef
 }) => {
-	const { checkGuess, guessedLetters, numLetters, currGuess, gameOn } =
+	const { checkGuess, guessedLetters, numLetters, currGuess, gameOn, gameWon } =
 		useContext(GameContext);
 
 	// for coloring the letters on the keyboard
@@ -38,6 +38,7 @@ const KeyboardWrapper: FunctionComponent<IProps> = ({
 	const handleKeyPress = async (e: string) => {
 		// if game hasn't started, don't do anything
 		if (!gameOn) return;
+		if (gameWon) return;
 
 		if (e === "{enter}") {
 			// don't send to the server if it's not a word of the proper length
@@ -59,8 +60,8 @@ const KeyboardWrapper: FunctionComponent<IProps> = ({
 			onKeyPress={handleKeyPress}
 			theme={"text-red-200 hg-theme-default"}
 			display={{ "{backspace}": " ", "{enter}": " " }}
-			physicalKeyboardHighlight={true}
-			physicalKeyboardHighlightPress={true}
+			physicalKeyboardHighlight={gameWon ? false : true}
+			physicalKeyboardHighlightPress={gameWon ? false : true}
 			physicalKeyboardHighlightTextColor={"rgb(240 240 240)"}
 			physicalKeyboardHighlightBgColor={"rgb(115 115 115)"}
 			debug={false}
@@ -68,6 +69,7 @@ const KeyboardWrapper: FunctionComponent<IProps> = ({
 			layoutName={"default"}
 			onChange={(e) => {
 				if (!gameOn) return;
+				if (gameWon) return;
 				if (e.length > numLetters) {
 					return;
 				}
