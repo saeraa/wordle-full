@@ -9,13 +9,6 @@ apiRouter.post("/highscore", (req, res) => {
 	res.status(201).json("ok");
 });
 
-apiRouter.get("/highscore", (req, res) => {
-	// console.log(req.query.length)
-	// console.log(req.query.unique)
-
-	res.send(200).json("ok");
-});
-
 apiRouter.post("/guess", (req, res) => {
 	const gameId = req.body.gameId;
 	const guess = req.body.guess;

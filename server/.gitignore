@@ -3,3 +3,4 @@ wordlist.js
 filterWords.js
 static/react/
 static/index.html
+static/styles/style.css

@@ -1,6 +1,103 @@
-<main>
+<script lang="script/js" defer>
+
+  function handleInputChange(increaseValue) {
+    const input = document.querySelector("#letters");
+
+    if (increaseValue) {
+      if (input.value >= 10) {
+        input.value = 10;
+        return;
+      }
+      input.value++;
+    } else {
+      if (input.value <= 5) {
+        input.value = 5;
+        return;
+      }
+      input.value--;
+    }
+
+    document.querySelector("#letter-counter").textContent = input.value;
+  }
+
+</script>
+
+<main class="max-w-2xl mx-auto">
   <div class="min-h-full max-w-full p-4 m-4 bg-neutral-800">
-    <h1 class="p-2 sm:p-3 bg-neutral-600 font-mono font-semibold uppercase">This is the highscore page</h1>
-    <p class="p-4">Hello</p>
+    <h1 class="p-2 sm:p-3 bg-neutral-600 font-mono font-semibold uppercase">
+      Highscores
+    </h1>
+    <details class="relative highscore-filter-details max-w-xs ml-auto">
+      <summary class="highscore-filter h-10"></summary>
+      <form action="/highscore" method="get" class="p-4 bg-neutral-600 rounded-md absolute right-2">
+        <input type="hidden" name="letters" value=5 id="letters" />
+        <div class="flex items-center">
+          <span class="mr-2">Letters:</span>
+          <img src="../react/icon-minus.svg" alt="Decrease letter count" class="w-4 mr-1 cursor-pointer" id="minus"
+            onclick="handleInputChange(false)" />
+          <span class="text-lg" id="letter-counter">5</span>
+          <img src="../react/icon-plus.svg" alt="Increase letter count" class="w-4 ml-1 cursor-pointer" id="plus"
+            onclick="handleInputChange(true)" />
+        </div>
+        <label><input type="checkbox" name="unique" /> Only unique letters</label>
+        <button class="secondary my-2">Apply filter</button>
+      </form>
+    </details>
+    <div class="flex flex-col w-full">
+      <div class="overflow-x-auto">
+        <div class="py-2 inline-block min-w-full">
+          <div class="overflow-hidden">
+            <table class="min-w-full">
+              <thead class="bg-purple-700 border-b border-neutral-800 text-neutral-200 sm:px-6 lg:px-8">
+                <tr>
+                  <th scope="col" class="text-sm font-medium text-neutral-200 px-6 py-4 text-left">
+                    #
+                  </th>
+                  <th scope="col" class="text-sm font-medium text-neutral-200 px-6 py-4 text-left">
+                    Name
+                  </th>
+                  <th scope="col" class="text-sm font-medium text-neutral-200 px-6 py-4 text-left">
+                    Time
+                  </th>
+                  <th scope="col" class="text-sm font-medium text-neutral-200 px-6 py-4 text-left">
+                    Letters
+                  </th>
+                  <th scope="col" class="text-sm font-medium text-neutral-200 px-6 py-4 text-left">
+                    Unique?
+                  </th>
+                  <th scope="col" class="text-sm font-medium text-neutral-200 px-6 py-4 text-left">
+                    Guesses
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% highscores.forEach(function(highscore, index){ %>
+                  <tr class=" border-b border-neutral-900">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-neutral-200">
+                      <%= (index + 1) %>
+                    </td>
+                    <td class="text-sm text-neutral-200 font-light px-6 py-4 whitespace-nowrap">
+                      <%= highscore.name %>
+                    </td>
+                    <td class="text-sm text-neutral-200 font-light px-6 py-4 whitespace-nowrap">
+                      <%= highscore.time %>
+                    </td>
+                    <td class="text-sm text-neutral-200 font-light px-6 py-4 whitespace-nowrap">
+                      <%= highscore.letters %>
+                    </td>
+                    <td class="text-sm text-neutral-200 font-light px-6 py-4 whitespace-nowrap">
+                      <%= highscore.isUnique ? "Yes" : "No" %>
+                    </td>
+                    <td class="text-sm text-neutral-200 font-light px-6 py-4 whitespace-nowrap">
+                      <%= highscore.guesses.length %>
+                    </td>
+                  </tr>
+                  <% }); %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
-    </main>
+  </div>
+</main>

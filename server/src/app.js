@@ -2,6 +2,7 @@ import express from "express";
 import expressLayouts from "express-ejs-layouts";
 import apiRouter from "./api.js";
 import cors from "cors";
+import fetchFromDatabase from "./fetchFromDatabase/fetchFromDatabase.js";
 
 const app = express();
 
@@ -30,10 +31,32 @@ app.get("/information", async (req, res) => {
 });
 
 app.get("/highscore", async (req, res) => {
-	res.render("pages/highscore", {
+	const options = {
 		title: "Wordle - Highscores",
-		page: "hs"
+		page: "hs",
+		highscores: []
+	};
+
+	const letters = req.query?.letters || undefined;
+	const unique = req.query?.unique || undefined;
+
+	const result = await fetchFromDatabase(letters, unique);
+
+	options.highscores = result.map((entry) => {
+		const time =
+			new Date(entry.endTime).getTime() - new Date(entry.startTime).getTime();
+		const minutes = Math.floor((time / 1000 / 60) % 60);
+		const seconds = Math.floor((time / 1000) % 60);
+
+		return {
+			...entry,
+			time: `${minutes.toString().padStart(2, "0")}:${seconds
+				.toString()
+				.padStart(2, "0")}`
+		};
 	});
+
+	res.render("pages/highscore", options);
 });
 
 app.get("/game", async (req, res) => {

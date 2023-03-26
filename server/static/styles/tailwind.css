@@ -5,6 +5,31 @@
 
 @layer utilities {
 
+  .highscore-filter {
+    position: relative;
+  }
+
+  details>summary.highscore-filter {
+    text-align: right;
+    padding: 0.5rem 3rem 0.5rem 2rem;
+    border: none;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .highscore-filter::before {
+    content: "";
+    background-image: url("../icon-filter.svg");
+    position: absolute;
+    right: .5rem;
+    top: .5rem;
+    z-index: +1;
+    display: block;
+    width: 24px;
+    height: 24px;
+    border-radius: 5px;
+  }
+
   .shadow-text {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.573);
   }
@@ -12,9 +37,11 @@
   .incorrect {
     @apply bg-neutral-700 text-neutral-400 border-neutral-900/90;
   }
+
   .misplaced {
     @apply bg-amber-600/90 text-neutral-200;
   }
+
   .correct {
     @apply bg-green-600/90 text-neutral-50;
   }
