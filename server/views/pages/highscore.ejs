@@ -24,12 +24,13 @@
 
 <main class="max-w-2xl mx-auto">
   <div class="min-h-full max-w-full p-4 m-4 bg-neutral-800">
-    <h1 class="p-2 sm:p-3 bg-neutral-600 font-mono font-semibold uppercase">
+    <h1 class="p-2 sm:p-3 bg-neutral-600 font-mono font-semibold uppercase flex gap-2">
+      <img src="../icon-trophy.svg" alt="" />
       Highscores
     </h1>
     <details class="relative highscore-filter-details max-w-xs ml-auto">
-      <summary class="highscore-filter h-10"></summary>
-      <form action="/highscore" method="get" class="p-4 bg-neutral-600 rounded-md absolute right-2">
+      <summary class="highscore-filter h-10" title="filter"></summary>
+      <form action="/highscore" method="get" class="p-8 bg-neutral-600 rounded-md absolute right-2">
         <input type="hidden" name="letters" value=5 id="letters" />
         <div class="flex items-center">
           <span class="mr-2">Letters:</span>

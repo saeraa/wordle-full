@@ -7,6 +7,7 @@
 
   .highscore-filter {
     position: relative;
+    color:#ffde06;
   }
 
   details>summary.highscore-filter {
