@@ -72,7 +72,7 @@ app.get("/game", async (req, res) => {
 	});
 });
 
-app.use("/", express.static("./static"));
+app.use("/", express.static(path.resolve(__dirname, "../static")));
 
 app.get("/*", async (req, res) => {
 	res.render("pages/error404", {
