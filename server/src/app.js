@@ -3,10 +3,16 @@ import expressLayouts from "express-ejs-layouts";
 import apiRouter from "./api.js";
 import cors from "cors";
 import fetchFromDatabase from "./fetchFromDatabase/fetchFromDatabase.js";
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
 app.set("view engine", "ejs");
+app.set("views", path.resolve(__dirname, "../views"));
 app.set("layout extractScripts", true);
 app.set("layout extractStyles", true);
 
