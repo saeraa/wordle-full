@@ -42,9 +42,9 @@ function App() {
         setStartTime(new Date(response.data.startTime));
         setGameOn(true);
 			} catch (err: unknown) {
-				console.log(err);
+				// console.log(err);
 			} finally {
-				console.log("finally!");
+				// console.log("finally!");
 			}
 		};
 
