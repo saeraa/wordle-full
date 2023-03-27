@@ -50,7 +50,7 @@ function App() {
 
 		const options = {
 			method: "get",
-			url: `http://localhost:5080/api/word?length=${numLetters}&unique=${isUnique}`,
+			url: `api/word?length=${numLetters}&unique=${isUnique}`,
 			headers: {
 				accept: "Application/json"
 			}
@@ -125,7 +125,7 @@ function App() {
 
 		const options = {
 			method: "post",
-			url: `http://localhost:5080/api/guess`,
+			url: `api/guess`,
 			headers: {
 				accept: "*/*",
 				"Content-Type": "application/json"
