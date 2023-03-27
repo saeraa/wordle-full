@@ -83,4 +83,4 @@ function checkIfGameOver() {
 	return false;
 }
 
-export { createNewGame, checkWordGuess };
+export { createNewGame, checkWordGuess, currentGame };

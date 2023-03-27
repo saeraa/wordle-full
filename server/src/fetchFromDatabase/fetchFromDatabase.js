@@ -1,12 +1,12 @@
-import axios from "axios";
+import Highscore from "../utils/highscore.model.js";
 
 async function getData(letters, unique) {
   const isUnique = unique === "on" ? true : false;
   const numLetters = parseInt(letters);
+  
+  const result = await Highscore.find({}).lean();
 
-  const result = await axios.get("http://localhost:5080/fakeDB.json")
-
-  const filteredArray = result.data.filter((DBentry) => {
+  const filteredArray = result.filter((DBentry) => {
     if (isUnique && !isNaN(numLetters)) {
       return DBentry.isUnique && DBentry.letters === numLetters;
     } else if (isUnique) {

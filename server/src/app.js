@@ -1,10 +1,11 @@
+import mongoose from "mongoose";
 import express from "express";
 import expressLayouts from "express-ejs-layouts";
 import apiRouter from "./api.js";
 import cors from "cors";
 import fetchFromDatabase from "./fetchFromDatabase/fetchFromDatabase.js";
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -18,6 +19,8 @@ app.set("layout extractStyles", true);
 
 app.use(expressLayouts);
 app.use(express.json());
+
+mongoose.connect(process.env.MONGODB);
 
 app.use(cors());
 app.use("/api", apiRouter);
@@ -48,19 +51,25 @@ app.get("/highscore", async (req, res) => {
 
 	const result = await fetchFromDatabase(letters, unique);
 
-	options.highscores = result.map((entry) => {
-		const time =
-			new Date(entry.endTime).getTime() - new Date(entry.startTime).getTime();
-		const minutes = Math.floor((time / 1000 / 60) % 60);
-		const seconds = Math.floor((time / 1000) % 60);
+	options.highscores = result
+		.sort((a, b) => {
+			const aTime = a.endTime - a.startTime;
+			const bTime = b.endTime - b.startTime;
+			return aTime - bTime;
+		})
+		.map((entry) => {
+			const time =
+				new Date(entry.endTime).getTime() - new Date(entry.startTime).getTime();
+			const minutes = Math.floor((time / 1000 / 60) % 60);
+			const seconds = Math.floor((time / 1000) % 60);
 
-		return {
-			...entry,
-			time: `${minutes.toString().padStart(2, "0")}:${seconds
-				.toString()
-				.padStart(2, "0")}`
-		};
-	});
+			return {
+				...entry,
+				time: `${minutes.toString().padStart(2, "0")}:${seconds
+					.toString()
+					.padStart(2, "0")}`
+			};
+		});
 
 	res.render("pages/highscore", options);
 });
@@ -82,19 +91,3 @@ app.get("/*", async (req, res) => {
 });
 
 export default app;
-
-// app.use(express.static('client/build'));
-// const path = require('path');
-
-// app.get('*', (req, res) => {
-//   res.sendFile(path
-//     .resolve(__dirname, 'client', 'build', 'index.html'));
-// });
-
-// //app.use("/", express.static("./static"));
-
-// app.get("*", async (req, res) => {
-//   res.status(200).json("hi")
-// })
-
-// app.listen(PORT);

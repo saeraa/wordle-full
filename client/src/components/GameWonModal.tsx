@@ -25,7 +25,7 @@ const GameModal = ({ onClose }: GameModalProps) => {
 
 	const options = {
 		method: "post",
-		url: `http://localhost:5080/api/highscore`,
+		url: `api/highscore`,
 		headers: {
 			accept: "Application/json",
 			"Content-Type": "application/json"
