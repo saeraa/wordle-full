@@ -4,3 +4,4 @@ filterWords.js
 static/react/
 static/index.html
 static/styles/style.css
+static/styles/style.min.css

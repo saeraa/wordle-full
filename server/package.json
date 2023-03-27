@@ -5,11 +5,11 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "postinstall": "postcss static/styles/tailwind.css -o static/styles/style.css",
+    "postinstall": "cat static/styles/tailwind.css static/react/index.css | postcss > static/styles/style.min.css",
     "tailwind:css": "postcss static/styles/tailwind.css -o static/styles/style.css",
     "start": "nodemon ./src/index.js",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --verbose"
-  },
+    },
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -19,12 +19,13 @@
     "nanoid": "^4.0.1",
     "postcss": "^8.4.21",
     "postcss-cli": "^10.1.0",
-    "tailwindcss": "^3.2.7",
-    "uuid": "^9.0.0"
+    "tailwindcss": "^3.2.7"
   },
   "devDependencies": {
     "axios": "^1.3.4",
     "cross-env": "^7.0.3",
+    "cssnano": "^5.1.15",
+    "cssnano-preset-advanced": "^5.3.10",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "express-ejs-layouts": "^2.5.1",
