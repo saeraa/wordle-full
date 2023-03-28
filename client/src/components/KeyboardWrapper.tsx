@@ -1,8 +1,4 @@
-import {
-	FunctionComponent,
-	MutableRefObject,
-	useContext
-} from "react";
+import { FunctionComponent, MutableRefObject, useContext } from "react";
 import Keyboard, { KeyboardReactInterface } from "react-simple-keyboard";
 import { GameContext } from "../context/gameContext";
 
@@ -33,7 +29,6 @@ const KeyboardWrapper: FunctionComponent<IProps> = ({
 		.filter((a) => a.result === "misplaced")
 		.reduce((prev, curr) => prev + " " + curr.letter, "")
 		.toLowerCase();
-
 
 	const handleKeyPress = async (e: string) => {
 		// if game hasn't started, don't do anything
@@ -75,7 +70,6 @@ const KeyboardWrapper: FunctionComponent<IProps> = ({
 				}
 				onChange(e.toUpperCase());
 			}}
-			onRender={() => console.log("Rendered")}
 			layout={{
 				default: [
 					"q w e r t y u i o p",

@@ -65,9 +65,9 @@ const GameModal = ({ onClose }: GameModalProps) => {
 				}
 				setFormSent(true);
 			} catch (err: unknown) {
-				console.log(err);
+				//console.log(err);
 			} finally {
-				console.log("finally!");
+				//console.log("finally!");
 			}
 		};
 

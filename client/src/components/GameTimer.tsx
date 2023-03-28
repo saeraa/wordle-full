@@ -19,14 +19,14 @@ const GameTimer = () => {
 
 	let timer = 0;
 
-  useEffect(() => {
+	useEffect(() => {
 		// let's not start the timer if the game isn't on
-    if (!gameOn) {
+		if (!gameOn) {
 			return () => clearInterval(timer);
-		};
-    if (gameOn) timer = setInterval(getTime, 1000);
+		}
+		if (gameOn) timer = setInterval(getTime, 1000);
 		return () => clearInterval(timer);
-  }, [gameOn])
+	}, [gameOn]);
 
 	return (
 		<div className="flex p-2 text-black font-semibold">

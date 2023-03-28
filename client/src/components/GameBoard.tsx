@@ -5,8 +5,14 @@ import { Letter } from "../interfaces/Letter";
 import { GameContext } from "../context/gameContext";
 
 const GameBoard = () => {
-	const { isUnique, allowedGuesses, numLetters, prevGuesses, currGuess, gameOn } =
-		useContext(GameContext);
+	const {
+		isUnique,
+		allowedGuesses,
+		numLetters,
+		prevGuesses,
+		currGuess,
+		gameOn
+	} = useContext(GameContext);
 	const emptyLetter = { letter: "", result: "" };
 	const num = allowedGuesses * numLetters;
 	const initialState = Array(num).fill(emptyLetter);
@@ -16,10 +22,12 @@ const GameBoard = () => {
 	useEffect(() => {
 		const previous = prevGuesses.flat();
 
-		const currentGuessedLetters: Letter[] = currGuess.split("").map((letter) => ({
-			letter: letter,
-			result: ""
-		}));
+		const currentGuessedLetters: Letter[] = currGuess
+			.split("")
+			.map((letter) => ({
+				letter: letter,
+				result: ""
+			}));
 
 		// set list of letters to previous guesses, followed by current guess and then pad the remainder of the array with blank letters
 		setLetters(() => {

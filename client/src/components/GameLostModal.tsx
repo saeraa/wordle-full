@@ -8,7 +8,6 @@ const GameModal = () => {
 
 	return (
 		<div className="modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-20">
-
 			<div className="modal fixed top m-auto w-full max-w-md bg-neutral-800 p-4 sm:p-10 rounded-md">
 				<div className="text-neutral-200 flex flex-col gap-4">
 					<h2 className="text-purple-200 my-2 text-xl font-semibold flex items-center">
@@ -17,7 +16,11 @@ const GameModal = () => {
 					</h2>
 
 					<div className="flex gap-2 text-md items-center">
-						The word was: <span className="text-purple-200 font-bold">{correctWord.toUpperCase()}</span>.
+						The word was:
+						<span className="text-purple-200 font-bold">
+							{correctWord.toUpperCase()}
+						</span>
+						.
 					</div>
 
 					<button className="primary mt-5 mx-auto px-8" onClick={resetGame}>

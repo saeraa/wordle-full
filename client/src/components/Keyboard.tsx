@@ -15,15 +15,14 @@ const KeyboardComponent: FunctionComponent = () => {
 	const keyboard = useRef(null);
 
 	const onChangeInput = (event: ChangeEvent<HTMLInputElement>): void => {
-
 		// if game hasn't started, don't do anything
 		if (!gameOn) return;
 
 		if (gameWon === true) {
 			setInput("");
 			keyboard.current.setInput("");
-			return
-		};
+			return;
+		}
 
 		const input = event.target.value.toUpperCase();
 

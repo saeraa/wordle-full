@@ -40,8 +40,10 @@ const GameModal = () => {
 
 	useEffect(() => {
 		const { current } = backdrop;
-		const keyHandler = (e: KeyboardEvent) => e.key === "Escape" &&  setShowStartModal(false);
-		const clickHandler = (e: MouseEvent) => e.target === current && setShowStartModal(false);
+		const keyHandler = (e: KeyboardEvent) =>
+			e.key === "Escape" && setShowStartModal(false);
+		const clickHandler = (e: MouseEvent) =>
+			e.target === current && setShowStartModal(false);
 
 		if (current) {
 			current.addEventListener("click", clickHandler);
@@ -57,12 +59,13 @@ const GameModal = () => {
 	});
 
 	return (
-		<div ref={backdrop} className="modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-40">
+		<div
+			ref={backdrop}
+			className="modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-40"
+		>
 			<div className="modal fixed top m-auto w-full max-w-xs bg-neutral-800 p-4 sm:p-10 rounded-md">
 				<div className="relative text-neutral-200 flex flex-col gap-4">
-					<h2
-						className="text-purple-200 my-2 text-xl font-semibold"
-					>
+					<h2 className="text-purple-200 my-2 text-xl font-semibold">
 						Start a new game
 					</h2>
 
@@ -101,7 +104,10 @@ const GameModal = () => {
 						Let's go!
 					</button>
 				</div>
-				<button onClick={() => setShowStartModal(false)} className="absolute top-2 right-2">
+				<button
+					onClick={() => setShowStartModal(false)}
+					className="absolute top-2 right-2"
+				>
 					<img src={IconClose} alt="" />
 				</button>
 			</div>
