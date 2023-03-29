@@ -1,7 +1,7 @@
 import express from "express";
 import { createNewGame, checkWordGuess, currentGame } from "./currentGame.js";
 import * as dotenv from "dotenv";
-import Highscore from "./utils/highscore.model.js";
+import Highscore from "./highscore.model.js";
 
 dotenv.config();
 

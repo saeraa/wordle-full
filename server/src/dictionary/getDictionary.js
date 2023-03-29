@@ -24,4 +24,4 @@ export function getListOfWords(letterAmount) {
 		case 10:
 			return words10.words;
 	}
-}  
+}

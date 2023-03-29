@@ -1,29 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import guessWord from "./guessWord";
 
-/* 
-
-TESTSTRATEGI:
-
-* Vilken testtyp ska vi använda? (e2e, integration, enhet etc)
-Enhetstest är det enda som verkar vettigt här, då det är en enskild funktion som ska testas.
-
-* Hur ska vi isolera, d.v.s. vad testas och vad mockas bort?
-Eftersom funktionen inte har några beroenden behöver inget mockas. Bara funktionen ska testas.
-
-* Vilka tester krävs för att täcka hela **definitionen**?
- - Testa att identiska ord returnerar "correct" överallt
- - Testa ord med bokstäverna på fel ställe för att se att den returnerar "misplaced"
- - Testa med ord med dubbla bokstäver där bara ett finns i det rätta ordet för att se att funktionen svarar korrekt
-
- Vi skulle även kunna testa att man får ett felmeddelande om:
-  - Man bara skickar in ett ord
-  - Ett av orden innehåller specialtecken och/eller mellanslag
-  - Orden har olika längder
-  - Någon av strängarna är tomma
-
-*/
-
 describe("the function guessWord()", () => {
 	it("returns the correct result for double letters where one is in the right place", () => {
 		const result = guessWord("hallå", "cykla");

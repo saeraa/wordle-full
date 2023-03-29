@@ -1,4 +1,4 @@
-import Highscore from "../utils/highscore.model.js";
+import Highscore from "../highscore.model.js";
 
 async function getData(letters, unique) {
   const isUnique = unique === "on" ? true : false;
@@ -14,7 +14,7 @@ async function getData(letters, unique) {
     } else if (!isNaN(numLetters)) {
       return DBentry.letters === numLetters;
     } else {
-      return true; // no filters applied
+      return true; 
     }
   });
 

@@ -6,7 +6,7 @@ function guessWord(guessInput, correctWordInput) {
 	const guess = guessInput.toLowerCase();
 	const correctWord = correctWordInput.toLowerCase();
 
-	console.log(guessInput, correctWord)
+	console.log(guessInput, correctWord);
 
 	if (guess.length !== correctWord.length) {
 		return [{ error: "The word length does not match." }];
@@ -47,6 +47,6 @@ function guessWord(guessInput, correctWordInput) {
 	}
 
 	return result;
-};
+}
 
 export default guessWord;
